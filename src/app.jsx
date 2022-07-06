@@ -10,7 +10,7 @@ export const App = () => {
   console.log(user.copy());
 
   return <div>
-    <img src={image} alt="" />
+    <img src={image} alt="image" />
     <p> Hello world</p>
   </div>
 }
