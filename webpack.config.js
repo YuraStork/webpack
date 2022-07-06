@@ -21,8 +21,8 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
     static: {
-      publicPath: "/assets",
-      directory: path.join(__dirname, "public/assets"),
+      publicPath: "/",
+      directory: path.join(__dirname, 'public'),
     },
   },
   plugins: [
