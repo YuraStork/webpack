@@ -8,7 +8,7 @@ module.exports = {
   mode: DEVELOPMENT_MODE,
   context: path.resolve(__dirname),
   devtool: "inline-source-map",
-  entry: "./src/index.ts",
+  entry: "./src/index.jsx",
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
@@ -35,6 +35,16 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
+          },
+        },
+      },
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", ["@babel/preset-react", { runtime: "automatic" }]],
           },
         },
       },
