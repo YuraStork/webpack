@@ -18,15 +18,15 @@ module.exports = {
     clean: true,
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, "public"),
-    },
-    compress: true,
     port: 3000,
+    historyApiFallback: true,
+    static: {
+      publicPath: "/assets",
+      directory: path.join(__dirname, "public/assets"),
+    },
   },
-
   plugins: [
-    new HtmlWebpackPlugin({ template: "./public/index.html" }),
+    new HtmlWebpackPlugin({ template: "./public/index.html", favicon: "./public/assets/webpack-logo.png" }),
     new MiniCssExtractPlugin(),
   ],
   module: {

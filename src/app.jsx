@@ -1,5 +1,6 @@
 import { sayHello } from './main'
-import './style.css'
+import './style.module.css'
+import './rules.scss'
 import image from '../public/assets/test.jpg'
 import { User } from './user'
 
