@@ -8,7 +8,10 @@ module.exports = {
   mode: DEVELOPMENT_MODE,
   context: path.resolve(__dirname),
   devtool: "inline-source-map",
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "index.js",
@@ -32,6 +35,16 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
+          },
+        },
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-typescript"],
           },
         },
       },
