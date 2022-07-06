@@ -1,0 +1,35 @@
+@font-face {
+  font-family: Roboto;
+  src: url('./styles/fonts/Roboto-Black.ttf');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('./styles/fonts/Roboto-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('./styles/fonts/Roboto-Light.ttf');
+  font-weight: 200;
+}
+
+body {
+  img {
+    width: 400px;
+  }
+
+  font-family: Roboto;
+  font-weight: 900;
+
+  & > div:last-of-type {
+    background-image: url('../public/assets/test.jpg');
+    background-size: 50px 50px;
+    width: 600px;
+    height: 600px;
+    color: white;
+    border: 1px solid black;
+  }
+}
