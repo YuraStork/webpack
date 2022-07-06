@@ -25,6 +25,8 @@ body {
   font-weight: 900;
 
   & > div:last-of-type {
+    background-image: url('../public/assets/test.jpg');
+    background-size: 50px 50px;
     width: 600px;
     height: 600px;
     color: white;

@@ -20,10 +20,6 @@ module.exports = {
   devServer: {
     port: 3000,
     historyApiFallback: true,
-    static: {
-      publicPath: "/",
-      directory: path.join(__dirname, 'public'),
-    },
   },
   plugins: [
     new HtmlWebpackPlugin({ template: "./public/index.html", favicon: "./public/assets/webpack-logo.png" }),
@@ -87,17 +83,11 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        loader: "file-loader",
-        options: {
-          name: "images/[hash].[ext]",
-        },
+        type: 'asset/resource',
       },
       {
         test: /\.(woff2?|ttf)$/i,
-        loader: "file-loader",
-        options: {
-          name: "fonts/[hash].[ext]",
-        },
+        type: 'asset/resource',
       },
     ],
   },
