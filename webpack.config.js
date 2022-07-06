@@ -25,6 +25,16 @@ module.exports = {
   plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" }), new MiniCssExtractPlugin()],
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
       { test: /\.css$/i, use: [MiniCssExtractPlugin.loader, "css-loader"] },
       { test: /\.s(a|c)ss$/i, use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"] },
       {
