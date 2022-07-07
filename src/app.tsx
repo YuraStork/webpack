@@ -1,7 +1,5 @@
-import { Header } from "components/header"
+import { Router } from "./router"
 
 export const App = () => {
-  return <div>
-    <Header/>
-  </div>
+  return <Router />
 }
