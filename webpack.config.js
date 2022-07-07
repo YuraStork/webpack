@@ -13,6 +13,11 @@ module.exports = {
   entry: "./src/index.tsx",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
+    alias: {
+      "components": path.resolve(__dirname, "src", 'components'),
+      "styles": path.resolve(__dirname, "src", 'styles'),
+      "models": path.resolve(__dirname, "src", 'models'),
+    }
   },
   output: {
     path: path.resolve(__dirname, "build"),
