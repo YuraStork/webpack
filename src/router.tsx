@@ -7,7 +7,9 @@ export const Router = () => {
     { path: '/', element: <Navigate to='/home' /> },
     {
       path: '/', element: <ContentWrapper />, children: [
-        { path: 'home', element: <HomePage /> }
+        { path: 'home', element: <HomePage /> },
+        { path: 'about', element: <>About</> },
+        { path: 'contacts', element: <>Contacts</> }
       ],
     },
   ])
