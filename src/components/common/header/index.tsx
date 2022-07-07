@@ -16,7 +16,6 @@ export const Header = () => {
           {LINKS.map(link => <li key={link.url}><NavLink to={link.url}>{link.label}</NavLink></li>)}
         </ul>
       </HeaderNavigation>
-
     </Container>
   </HeaderComponent>
 }

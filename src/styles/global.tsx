@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body{
     overflow: hidden;
+    font-family: Roboto;
   }
   li{
     list-style-type: none;
