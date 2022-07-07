@@ -1,9 +1,7 @@
-import styled from "styled-components"
+import { Container } from "../container/styles"
+import { Footer } from './styles'
 
-const Footer = styled.footer`
- border: 1px solid #d6d6d6;
-`
 
 export const FooterComponent = () => {
-  return <Footer >footer</Footer>
+  return <Footer><Container>footer</Container></Footer>
 } 

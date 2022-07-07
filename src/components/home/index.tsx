@@ -1,6 +1,10 @@
-import {HomeSection} from './styles'
+import { Container } from 'components/common/container/styles'
+import { HomeSection } from './styles'
+
 export const HomePage = () => {
   return <HomeSection>
-    Home
+    <Container>
+      Home
+    </Container>
   </HomeSection>
 }
