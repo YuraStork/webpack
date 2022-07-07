@@ -1,6 +1,6 @@
 import { AboutPage } from "components/about"
 import { ContactsPage } from "components/contacts"
-import { ContentWrapper } from "components/content-wrapper/index"
+import { ContentWrapper } from "components/common/content-wrapper/index"
 import { HomePage } from "components/home/index"
 import { Navigate, useRoutes } from "react-router-dom"
 

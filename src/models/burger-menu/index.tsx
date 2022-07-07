@@ -11,12 +11,12 @@ interface BurgerProps {
 }
 
 export const BurgerMenu: FC<BurgerProps> = ({ list = [] }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => setIsOpen(!isOpen);
 
   return (
     <BurgerWrapper>
-      <Burger isOpen={isOpen} onClick={handleClick}>
+      <Burger isOpen={isOpen} onClick={handleClick} role="navigation">
         <span />
       </Burger>
 
