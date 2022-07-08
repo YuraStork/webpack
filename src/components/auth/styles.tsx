@@ -27,10 +27,12 @@ const FormWrapper = styled.div`
   & > a{
     width: max-content;
     display: inline-block;
-    padding: 5px;
+    padding: 10px 5px;
     transition: all .3s;
+    border-bottom: 2px solid transparent; 
+
     &:hover{
-      border-bottom: 1px solid ${p=>p.theme.colors.link} 
+      border-color: ${p=>p.theme.colors.link} 
     }
   }
 `
