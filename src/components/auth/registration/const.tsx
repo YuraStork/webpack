@@ -1,4 +1,6 @@
+import { handleRegistration } from 'api/user.api';
 import { UserRegistrationData } from 'types';
+import { cryptoSha256 } from 'utils/cryptoPassord';
 import * as yup from 'yup';
 
 export const validationSchema = yup.object().shape({
@@ -10,9 +12,12 @@ export const validationSchema = yup.object().shape({
 export const initialValues: UserRegistrationData = {
   name: '',
   email: '',
-  password: ''
+  password: '',
+  age: 18
 }
 
 export const onSubmit = (data: UserRegistrationData, formikHelper: any): void => {
-  console.log("login", data)
+  const password = cryptoSha256(data.password);
+  handleRegistration({ ...data, password });
+  formikHelper.resetForm();
 }

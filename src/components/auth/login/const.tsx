@@ -1,5 +1,7 @@
+import { handleAuthorization } from 'api/user.api';
 import { FormikHelpers } from 'formik';
 import { UserLoginData } from 'types';
+import { cryptoSha256 } from 'utils/cryptoPassord';
 import * as yup from 'yup';
 
 export const validationSchema = yup.object().shape({
@@ -13,5 +15,7 @@ export const initialValues: UserLoginData = {
 }
 
 export const onSubmit = (data: UserLoginData, formikHelper: any): void => {
-  console.log("login", data)
+  const password = cryptoSha256(data.password);
+  handleAuthorization({ ...data, password });
+  formikHelper.resetForm();
 }

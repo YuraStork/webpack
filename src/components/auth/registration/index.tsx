@@ -32,6 +32,20 @@ export const RegistrationPage = () => {
                 : ""
             }
           />
+            <Input
+            margin="5px 0px 0px 0px"
+            label="Age"
+            name="age"
+            type="number"
+            value={formik.values.age}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.errors.age && formik.touched.age
+                ? formik.errors.age
+                : ""
+            }
+          />
 
           <Input
             margin="5px 0px 0px 0px"
