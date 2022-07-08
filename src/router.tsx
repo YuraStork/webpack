@@ -5,9 +5,12 @@ import { HomePage } from "components/home/index"
 import { Navigate, useRoutes } from "react-router-dom"
 import { LoginPage } from "components/auth/login"
 import { RegistrationPage } from "components/auth/registration"
+import { useContext } from "react"
+import { AuthContext } from "context/auth.context"
 
 export const Router = () => {
-  const isAuth = true;
+  const { isAuth } = useContext(AuthContext)
+
   const privateRoutes = useRoutes([
     { path: '/', element: <Navigate to='/home' /> },
     {
@@ -18,7 +21,7 @@ export const Router = () => {
       ],
     },
     { path: '/login', element: <>You have already signed in</> },
-    { path: '/registration', element:  <>You have already signed up</> },
+    { path: '/registration', element: <>You have already signed up</> },
     { path: '*', element: <div>Not-found</div> },
   ])
 

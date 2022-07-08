@@ -5,12 +5,15 @@ import { initialValues, validationSchema, onSubmit } from "./const";
 import { Input } from "models/input";
 import { Button } from "models/button/styles";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "context/auth.context";
 
 export const LoginPage = () => {
+  const { login } = useContext(AuthContext)
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit,
+    onSubmit: (data, helper) => onSubmit(data, helper, login)
   });
 
   return (

@@ -10,7 +10,6 @@ export const handleAuthorization = async (data: UserLoginData) => {
     return res;
   }
   catch (e: AxiosError | any) {
-    console.log("Error", e)
     toast.error(((e as AxiosError).response?.data as string) || "Error")
     throw e;
   }

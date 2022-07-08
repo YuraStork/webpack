@@ -14,3 +14,10 @@ export interface UserData {
     role: string
   }
 }
+
+export interface AuthContextTypes {
+  isAuth: boolean,
+  isReady: boolean,
+  userData: UserData | null,
+  login: (data: UserLoginData) => void
+}

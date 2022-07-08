@@ -1,5 +1,4 @@
 import { handleAuthorization } from 'api/user.api';
-import { FormikHelpers } from 'formik';
 import { UserLoginData } from 'types';
 import { cryptoSha256 } from 'utils/cryptoPassord';
 import * as yup from 'yup';
@@ -14,8 +13,8 @@ export const initialValues: UserLoginData = {
   password: ''
 }
 
-export const onSubmit = (data: UserLoginData, formikHelper: any): void => {
+export const onSubmit = (data: UserLoginData, formikHelper: any, login: any): void => {
   const password = cryptoSha256(data.password);
-  handleAuthorization({ ...data, password });
+  login({ ...data, password });
   formikHelper.resetForm();
 }

@@ -15,6 +15,9 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
       "api": path.resolve(__dirname, "src", 'api'),
+      "hooks": path.resolve(__dirname, "src", 'hooks'),
+      "context": path.resolve(__dirname, "src", "context"),
+      "services": path.resolve(__dirname, "src", 'services'),
       "utils": path.resolve(__dirname, "src", 'utils'),
       "components": path.resolve(__dirname, "src", 'components'),
       "styles": path.resolve(__dirname, "src", 'styles'),
