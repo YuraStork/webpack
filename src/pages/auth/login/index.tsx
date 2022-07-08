@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import { MainTitle } from "styles/typography/styles";
 import { AuthSection, Form, FormWrapper } from "../styles";
 import { initialValues, validationSchema, onSubmit } from "./const";
-import { Input } from "models/input";
-import { Button } from "models/button/styles";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "context/auth.context";
+import { Input } from "components/input";
+import { Button } from "components/button/styles";
 
 export const LoginPage = () => {
   const { login } = useContext(AuthContext)

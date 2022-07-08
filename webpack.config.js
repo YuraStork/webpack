@@ -14,6 +14,8 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
+      "pages": path.resolve(__dirname, "src", 'pages'),
+      "public":path.resolve(__dirname, "public"),
       "api": path.resolve(__dirname, "src", 'api'),
       "hooks": path.resolve(__dirname, "src", 'hooks'),
       "context": path.resolve(__dirname, "src", "context"),
@@ -21,7 +23,6 @@ module.exports = {
       "utils": path.resolve(__dirname, "src", 'utils'),
       "components": path.resolve(__dirname, "src", 'components'),
       "styles": path.resolve(__dirname, "src", 'styles'),
-      "models": path.resolve(__dirname, "src", 'models'),
     }
   },
   output: {

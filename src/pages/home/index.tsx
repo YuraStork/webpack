@@ -1,4 +1,4 @@
-import { Container } from 'components/common/container/styles'
+import { Container } from 'components/container/styles'
 import { HomeSection } from './styles'
 
 export const HomePage = () => {

@@ -14,7 +14,6 @@ export const useAuth = () => {
 
   async function login(data: UserLoginData) {
     try {
-      console.log("DATA", data)
       const res = await handleAuthorization(data);
       setToken(res.data.token);
       setIsAuth(true);

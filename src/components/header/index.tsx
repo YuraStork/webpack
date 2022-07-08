@@ -1,4 +1,4 @@
-import { BurgerMenu } from "models/burger-menu"
+import { BurgerMenu } from "components/burger-menu"
 import { NavLink } from "react-router-dom"
 import { Container } from "../container/styles"
 import { LINKS } from "./const"

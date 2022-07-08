@@ -1,12 +1,12 @@
-import { AboutPage } from "components/about"
-import { ContactsPage } from "components/contacts"
-import { ContentWrapper } from "components/common/content-wrapper/index"
-import { HomePage } from "components/home/index"
 import { Navigate, useRoutes } from "react-router-dom"
-import { LoginPage } from "components/auth/login"
-import { RegistrationPage } from "components/auth/registration"
 import { useContext } from "react"
 import { AuthContext } from "context/auth.context"
+import { ContentWrapper } from "components/content-wrapper"
+import { HomePage } from "pages/home"
+import { AboutPage } from "pages/about"
+import { ContactsPage } from "pages/contacts"
+import { LoginPage } from "pages/auth/login"
+import { RegistrationPage } from "pages/auth/registration"
 
 export const Router = () => {
   const { isAuth } = useContext(AuthContext)

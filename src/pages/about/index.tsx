@@ -1,4 +1,5 @@
-import { Container } from 'components/common/container/styles'
+
+import { Container } from 'components/container/styles'
 import { AboutSection } from './styles'
 
 export const AboutPage = () => {

@@ -1,4 +1,4 @@
-import { Container } from 'components/common/container/styles'
+import { Container } from 'components/container/styles'
 import { ContactsSection } from './styles'
 
 export const ContactsPage = () => {
