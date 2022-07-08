@@ -17,8 +17,8 @@ export const Router = () => {
         { path: 'contacts', element: <ContactsPage /> },
       ],
     },
-    { path: '/login', element: <LoginPage /> },
-    { path: '/registration', element: <RegistrationPage /> },
+    { path: '/login', element: <>You have already signed in</> },
+    { path: '/registration', element:  <>You have already signed up</> },
     { path: '*', element: <div>Not-found</div> },
   ])
 
