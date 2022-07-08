@@ -9,7 +9,7 @@ export const ContentWrapper = () => {
     <Wrapper>
       <Header />
       {outlet}
-      <FooterComponent/>
+      <FooterComponent />
     </Wrapper>
   );
 };

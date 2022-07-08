@@ -9,16 +9,16 @@ import { Input } from "components/input";
 import { Button } from "components/button/styles";
 
 export const LoginPage = () => {
-  const { login } = useContext(AuthContext)
+  const { login } = useContext(AuthContext);
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (data, helper) => onSubmit(data, helper, login)
+    onSubmit: (data, helper) => onSubmit(data, helper, login),
   });
 
   return (
     <AuthSection>
-      <MainTitle >Login</MainTitle>
+      <MainTitle>Login</MainTitle>
       <FormWrapper>
         <Form onSubmit={formik.handleSubmit}>
           <Input
@@ -57,10 +57,9 @@ export const LoginPage = () => {
           >
             Send
           </Button>
-
         </Form>
-        <Link to='/registration'>Sing up</Link>
-      </FormWrapper >
+        <Link to="/registration">Sing up</Link>
+      </FormWrapper>
     </AuthSection>
   );
 };

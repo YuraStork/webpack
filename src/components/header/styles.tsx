@@ -3,7 +3,7 @@ import styled from "styled-components";
 const HeaderComponent = styled.header`
   background-color: black;
   color: white;
-  
+
   & > div {
     height: 100%;
     display: flex;

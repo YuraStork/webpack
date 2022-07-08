@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Burger, BurgerWrapper, NavigationMenu } from "./styles";
 
 type ListItem = {
@@ -20,8 +20,7 @@ export const BurgerMenu: FC<BurgerProps> = ({ list = [] }) => {
         <span />
       </Burger>
 
-
-      <NavigationMenu  isOpen={isOpen}>
+      <NavigationMenu isOpen={isOpen}>
         {isOpen ? (
           <ul>
             {list.map((link) => (
@@ -32,7 +31,6 @@ export const BurgerMenu: FC<BurgerProps> = ({ list = [] }) => {
           </ul>
         ) : null}
       </NavigationMenu>
-
     </BurgerWrapper>
   );
 };

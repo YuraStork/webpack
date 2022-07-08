@@ -22,4 +22,4 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ${normalize}
-`
+`;

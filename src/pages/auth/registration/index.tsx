@@ -16,7 +16,7 @@ export const RegistrationPage = () => {
   return (
     <AuthSection>
       <MainTitle>Registration</MainTitle>
-      <FormWrapper >
+      <FormWrapper>
         <Form onSubmit={formik.handleSubmit}>
           <Input
             margin="5px 0px 0px 0px"
@@ -32,7 +32,7 @@ export const RegistrationPage = () => {
                 : ""
             }
           />
-            <Input
+          <Input
             margin="5px 0px 0px 0px"
             label="Age"
             name="age"
@@ -41,9 +41,7 @@ export const RegistrationPage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={
-              formik.errors.age && formik.touched.age
-                ? formik.errors.age
-                : ""
+              formik.errors.age && formik.touched.age ? formik.errors.age : ""
             }
           />
 
@@ -84,8 +82,8 @@ export const RegistrationPage = () => {
             Send
           </Button>
         </Form>
-        <Link to='/login'>Sing in</Link>
-      </FormWrapper >
+        <Link to="/login">Sing in</Link>
+      </FormWrapper>
     </AuthSection>
   );
 };

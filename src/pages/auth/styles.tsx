@@ -9,7 +9,7 @@ const AuthSection = styled.section`
   padding: 10px;
   background-color: #f0f2f5;
   gap: 40px;
-  & > h1{
+  & > h1 {
     text-align: right;
   }
 `;
@@ -24,18 +24,18 @@ const FormWrapper = styled.div`
   border: 1px solid ${(p) => p.theme.colors.light_gray};
   box-shadow: 0px 0px 2px 0px #989898;
 
-  & > a{
+  & > a {
     width: max-content;
     display: inline-block;
     padding: 10px 5px;
-    transition: all .3s;
-    border-bottom: 2px solid transparent; 
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
 
-    &:hover{
-      border-color: ${p=>p.theme.colors.link} 
+    &:hover {
+      border-color: ${(p) => p.theme.colors.link};
     }
   }
-`
+`;
 const Form = styled.form``;
 
 export { AuthSection, Form, FormWrapper };

@@ -1,14 +1,12 @@
 import { handleAuthorization } from "api/user.api";
-import { AxiosError } from "axios";
-import { useEffect, useState } from "react"
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "services/token.service";
 import { UserData, UserLoginData } from "types";
-import { cryptoSha256 } from "utils/cryptoPassord";
 
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
-  const [isReady, setIsReady] = useState(false);
+  const [isReady] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const navigate = useNavigate();
 
@@ -18,13 +16,12 @@ export const useAuth = () => {
       setToken(res.data.token);
       setIsAuth(true);
       setUserData(res.data);
-      navigate('/home');
-    }
-    catch (e) {
+      navigate("/home");
+    } catch (e) {
       setIsAuth(false);
       setUserData(null);
     }
   }
 
-  return { isAuth, isReady, userData, login }
-}
+  return { isAuth, isReady, userData, login };
+};

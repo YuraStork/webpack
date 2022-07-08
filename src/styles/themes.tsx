@@ -12,6 +12,6 @@ export const themes = {
   breakPoints: {
     desktop: "1400px",
     tablet: "800px",
-    mobile: "400px"
-  }
-}
+    mobile: "400px",
+  },
+};

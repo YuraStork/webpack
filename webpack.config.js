@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -14,16 +13,16 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
-      "pages": path.resolve(__dirname, "src", 'pages'),
-      "public":path.resolve(__dirname, "public"),
-      "api": path.resolve(__dirname, "src", 'api'),
-      "hooks": path.resolve(__dirname, "src", 'hooks'),
-      "context": path.resolve(__dirname, "src", "context"),
-      "services": path.resolve(__dirname, "src", 'services'),
-      "utils": path.resolve(__dirname, "src", 'utils'),
-      "components": path.resolve(__dirname, "src", 'components'),
-      "styles": path.resolve(__dirname, "src", 'styles'),
-    }
+      pages: path.resolve(__dirname, "src", "pages"),
+      public: path.resolve(__dirname, "public"),
+      api: path.resolve(__dirname, "src", "api"),
+      hooks: path.resolve(__dirname, "src", "hooks"),
+      context: path.resolve(__dirname, "src", "context"),
+      services: path.resolve(__dirname, "src", "services"),
+      utils: path.resolve(__dirname, "src", "utils"),
+      components: path.resolve(__dirname, "src", "components"),
+      styles: path.resolve(__dirname, "src", "styles"),
+    },
   },
   output: {
     path: path.resolve(__dirname, "build"),
@@ -35,7 +34,10 @@ module.exports = {
     historyApiFallback: true,
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: "./public/index.html", favicon: "./public/assets/webpack-logo.png" }),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      favicon: "./public/assets/webpack-logo.png",
+    }),
     new MiniCssExtractPlugin(),
   ],
   module: {
@@ -96,13 +98,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
       {
         test: /\.(woff2?|ttf)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
     ],
   },
 };
-

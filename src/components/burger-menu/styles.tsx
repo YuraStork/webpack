@@ -4,8 +4,7 @@ type Props = {
   isOpen: boolean;
 };
 
-const BurgerWrapper = styled.div`
-`;
+const BurgerWrapper = styled.div``;
 
 const Burger = styled.div<Props>`
   width: 25px;
@@ -21,7 +20,7 @@ const Burger = styled.div<Props>`
     position: absolute;
     width: 100%;
     height: 2px;
-    background-color: ${p=>p.isOpen? '#000' : '#fff'};
+    background-color: ${(p) => (p.isOpen ? "#000" : "#fff")};
     transition: all 0.3s;
   }
 
@@ -53,25 +52,29 @@ const Burger = styled.div<Props>`
     `}
 `;
 
-const animation_menu = keyframes`
+const animationMenu = keyframes`
   0%{
     transform: translateX(-100%)
   }
   100%{
     transform: translateX(0);
   }
-`
+`;
 const NavigationMenu = styled.nav<Props>`
   width: 100%;
   padding-top: 50px;
   position: absolute;
   transform: translateX(-100%)
-  ${p=>p.isOpen && css`animation: ${animation_menu} .5s forwards;`};
+    ${(p) =>
+      p.isOpen &&
+      css`
+        animation: ${animationMenu} 0.5s forwards;
+      `};
   min-height: 100vh;
   left: 0;
   top: 0;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   transition: all 0.3s;
   background-color: #ffffff;
 
@@ -81,7 +84,7 @@ const NavigationMenu = styled.nav<Props>`
     position: relative;
     border-bottom: 1px solid #000000a9;
 
-    & > a{
+    & > a {
       color: Gold;
       font-size: 20px;
       font-weight: 400;
