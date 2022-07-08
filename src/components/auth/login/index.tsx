@@ -14,7 +14,7 @@ export const LoginPage = () => {
 
   return (
     <LoginSection>
-      <MainTitle>Login</MainTitle>
+      <MainTitle >Login</MainTitle>
       <Form onSubmit={formik.handleSubmit}>
         <Input
           label="Email"
