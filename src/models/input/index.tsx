@@ -20,8 +20,8 @@ export const Input: FC<InputProps> = ({ label, ...rest }) => {
   return <InputWrapper isError={!!rest.error} hasValue={!!rest.value}>
     <input {...rest} type={type} />
     <label>{label}</label>
-    {rest.type === 'password' && <button onClick={handleChangeType} type="button">
+    {/* {rest.type === 'password' && <button onClick={handleChangeType} type="button">
       <img src={View} alt="" width={10} height={10} />
-    </button>}
+    </button>} */}
   </InputWrapper>
 }

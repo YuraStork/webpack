@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import { MainTitle } from "styles/typography/styles";
-import { LoginSection } from "./styles";
+import { LoginSection, Form } from "./styles";
 import { initialValues, validationSchema, onSubmit } from "./const";
 import { Input } from "models/input";
+import { Button } from "models/button/styles";
 
 export const LoginPage = () => {
   const formik = useFormik({
@@ -14,7 +15,7 @@ export const LoginPage = () => {
   return (
     <LoginSection>
       <MainTitle>Login</MainTitle>
-      <form onSubmit={formik.handleSubmit}>
+      <Form onSubmit={formik.handleSubmit}>
         <Input
           label="Email"
           name="email"
@@ -22,7 +23,11 @@ export const LoginPage = () => {
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={(formik.errors.email && formik.touched.email) ? formik.errors.email : ''}
+          error={
+            formik.errors.email && formik.touched.email
+              ? formik.errors.email
+              : ""
+          }
         />
         <Input
           label="Password"
@@ -31,10 +36,21 @@ export const LoginPage = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={(formik.errors.password && formik.touched.password) ? formik.errors.password : ''}
+          error={
+            formik.errors.password && formik.touched.password
+              ? formik.errors.password
+              : ""
+          }
         />
-        <button type="submit">send</button>
-      </form>
+        <Button
+          type="submit"
+          margin="10px 0px 0px 0px"
+          color="#fff"
+          disabled={!formik.isValid || !formik.dirty}
+        >
+          Send
+        </Button>
+      </Form>
     </LoginSection>
   );
 };

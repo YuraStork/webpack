@@ -10,8 +10,10 @@ const InputWrapper = styled.div<InputWrapperProps>`
   padding-top: 5px;
 
   & > input {
+    width: 100%;
     height: 40px;
     position: relative;
+    caret-color: #0a87e1;
     padding: 0px 5px;
     border-radius: 5px;
     border: 2px solid ${(p) => p.theme.colors.light_gray};
@@ -20,6 +22,7 @@ const InputWrapper = styled.div<InputWrapperProps>`
     p.isError &&
     css`
         border: 2px solid red;
+        caret-color: red;
       `}
 
     &:focus {

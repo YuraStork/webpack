@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
-export const MainTitle = styled.h6`
-  font-size: 22px;
+export const MainTitle = styled.h1`
+  font-size: 32px;
 ` 
