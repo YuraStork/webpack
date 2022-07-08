@@ -1,6 +1,5 @@
 import { FC, useState } from "react"
 import { InputWrapper, ErrorSpan } from "./styles"
-import View from '../../../public/assets/view.png';
 
 type InputProps = {
   margin?: string,
