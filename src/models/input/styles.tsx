@@ -3,18 +3,31 @@ import styled, { css } from "styled-components";
 type InputWrapperProps = {
   isError: boolean;
   hasValue: boolean;
+  margin?: string;
 };
 
+const ErrorSpan = styled.span`
+  position: absolute;
+  width: 30px;
+  overflow: hidden;
+  background: url('/assets/warning.png') no-repeat;
+  background-size: 30px 30px;
+  top: 10px;
+  right: 5px;
+  height: 30px;
+  color: red;
+`
 const InputWrapper = styled.div<InputWrapperProps>`
   position: relative;
   padding-top: 5px;
+  ${p => p.margin && css`margin:${p.margin}`};
 
   & > input {
     width: 100%;
     height: 40px;
     position: relative;
     caret-color: #0a87e1;
-    padding: 0px 5px;
+    padding: 0px 30px 0px 10px;
     border-radius: 5px;
     border: 2px solid ${(p) => p.theme.colors.light_gray};
     outline: none;
@@ -70,4 +83,4 @@ const InputWrapper = styled.div<InputWrapperProps>`
   }
 `;
 
-export { InputWrapper };
+export { InputWrapper, ErrorSpan };

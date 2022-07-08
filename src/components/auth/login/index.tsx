@@ -17,6 +17,7 @@ export const LoginPage = () => {
       <MainTitle >Login</MainTitle>
       <Form onSubmit={formik.handleSubmit}>
         <Input
+          margin="5px 0px 0px 0px"
           label="Email"
           name="email"
           type="email"
@@ -30,6 +31,7 @@ export const LoginPage = () => {
           }
         />
         <Input
+          margin="5px 0px 0px 0px"
           label="Password"
           name="password"
           type="password"
