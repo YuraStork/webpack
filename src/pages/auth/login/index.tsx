@@ -13,13 +13,13 @@ export const LoginPage = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (data, helper) => onSubmit(data, helper, login),
+    onSubmit: (data: any, helper: any) => onSubmit(data, helper, login),
   });
 
   return (
     <AuthSection>
-      <MainTitle>Login</MainTitle>
       <FormWrapper>
+        <MainTitle>Login</MainTitle>
         <Form onSubmit={formik.handleSubmit}>
           <Input
             margin="5px 0px 0px 0px"

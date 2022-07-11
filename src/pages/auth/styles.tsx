@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const AuthSection = styled.section`
-  display: grid;
   min-height: 100vh;
+  display: flex;
   align-items: center;
-  grid-template: 1fr / 1fr 1fr;
+  justify-content: center;
   border: 1px solid ${(p) => p.theme.colors.light_gray};
   padding: 10px;
   background-color: #f0f2f5;
@@ -19,8 +19,7 @@ const FormWrapper = styled.div`
   background-color: white;
   border-radius: 5px;
   padding: 15px;
-  min-width: 250px;
-  max-width: 400px;
+  width: 400px;
   border: 1px solid ${(p) => p.theme.colors.light_gray};
   box-shadow: 0px 0px 2px 0px #989898;
 

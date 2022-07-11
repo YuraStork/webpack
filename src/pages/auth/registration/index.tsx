@@ -15,8 +15,8 @@ export const RegistrationPage = () => {
 
   return (
     <AuthSection>
-      <MainTitle>Registration</MainTitle>
       <FormWrapper>
+        <MainTitle>Registration</MainTitle>
         <Form onSubmit={formik.handleSubmit}>
           <Input
             margin="5px 0px 0px 0px"
