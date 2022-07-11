@@ -6,13 +6,14 @@ export interface UserRegistrationData extends UserLoginData {
   name: string;
   age: number;
 }
+export interface User {
+  id: string;
+  name: string;
+  role: string;
+}
 export interface UserData {
   token: string;
-  user: {
-    id: string;
-    name: string;
-    role: string;
-  };
+  user: User;
 }
 
 export interface AuthContextTypes {
