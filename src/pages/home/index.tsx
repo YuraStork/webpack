@@ -21,7 +21,7 @@ export const HomePage = () => {
         }
         <CardsWrapper>
           {
-            pokemons.map((pok) => <Card key={pok.url}>{pok.name}</Card>)
+            pokemons.map((pok) => <Card key={pok.url}><div>{pok.name}</div><div>side</div></Card>)
           }
         </CardsWrapper>
       </Container>

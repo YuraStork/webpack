@@ -11,11 +11,15 @@ export const usePokemons = () => {
 
   const loadPokemons = async (limit: number, offset: number) => {
     try {
+      if (count && pokemons.length < count) {
+        return
+      }
       setIsLoading(true);
       const res = await getPokemons(limit, offset);
       setPokemons(res.data.results);
       setCount(res.data.count);
       toast.success("Load success");
+
     }
     catch (e) {
       toast.error("Load fail")

@@ -8,6 +8,7 @@ import { AuthContext } from "context/auth.context";
 import { Input } from "components/content-wrapper/input";
 import { Button } from "components/button/styles";
 import { Portal } from "utils/portal";
+import { Loader } from "components/loader";
 
 export const LoginPage = () => {
   const { login, isLoading } = useContext(AuthContext);
@@ -64,7 +65,7 @@ export const LoginPage = () => {
         <Link to="/registration">Sing up</Link>
       </FormWrapper>
 
-      {isLoading && <Portal/>}
+      {isLoading && <Portal><Loader/></Portal>}
     </AuthSection>
   );
 };
