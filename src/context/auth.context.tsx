@@ -4,6 +4,7 @@ import { AuthContextTypes } from "types";
 export const AuthContext = createContext<AuthContextTypes>({
   isAuth: false,
   isReady: false,
-  login: () => {},
+  login: () => { },
+  logout: () => { },
   userData: null,
 });

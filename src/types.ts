@@ -21,4 +21,5 @@ export interface AuthContextTypes {
   isReady: boolean;
   userData: UserData | null;
   login: (data: UserLoginData) => void;
+  logout: () => void;
 }

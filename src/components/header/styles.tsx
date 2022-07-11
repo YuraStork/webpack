@@ -8,6 +8,7 @@ const HeaderComponent = styled.header`
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 `;
 

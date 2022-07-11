@@ -21,7 +21,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": "off",
     "no-unused-vars": "warn",
@@ -50,6 +54,7 @@
     "react/display-name": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-non-null-assertion": "warn",
-    "new-cap": "off"
+    "new-cap": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

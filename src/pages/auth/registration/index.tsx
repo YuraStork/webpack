@@ -3,7 +3,7 @@ import { MainTitle } from "styles/typography/styles";
 import { AuthSection, Form, FormWrapper } from "../styles";
 import { initialValues, validationSchema, onSubmit } from "./const";
 import { Link } from "react-router-dom";
-import { Input } from "components/input";
+import { Input } from "components/content-wrapper/input";
 import { Button } from "components/button/styles";
 
 export const RegistrationPage = () => {

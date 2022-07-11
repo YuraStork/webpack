@@ -37,7 +37,12 @@ export const useAuth = () => {
     }
   }
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    setIsAuth(false)
+    setUserData(null);
+  }
 
 
-  return { isAuth, isReady, userData, login };
+  return { isAuth, isReady, userData, login, logout };
 };

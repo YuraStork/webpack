@@ -5,7 +5,7 @@ import { initialValues, validationSchema, onSubmit } from "./const";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "context/auth.context";
-import { Input } from "components/input";
+import { Input } from "components/content-wrapper/input";
 import { Button } from "components/button/styles";
 
 export const LoginPage = () => {
