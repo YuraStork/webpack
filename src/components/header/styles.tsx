@@ -38,4 +38,12 @@ const HeaderNavigation = styled.nav`
   }
 `;
 
-export { HeaderComponent, BurgerWrapper, HeaderNavigation };
+const HeaderUserBlock = styled.div`
+  display: flex;
+
+  &> button{
+    display: inline-block;
+  }
+`
+
+export { HeaderComponent, BurgerWrapper, HeaderNavigation, HeaderUserBlock };
