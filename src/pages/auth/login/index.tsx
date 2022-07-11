@@ -7,9 +7,10 @@ import { useContext } from "react";
 import { AuthContext } from "context/auth.context";
 import { Input } from "components/content-wrapper/input";
 import { Button } from "components/button/styles";
+import { Portal } from "utils/portal";
 
 export const LoginPage = () => {
-  const { login } = useContext(AuthContext);
+  const { login, isLoading } = useContext(AuthContext);
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -22,6 +23,7 @@ export const LoginPage = () => {
         <MainTitle>Login</MainTitle>
         <Form onSubmit={formik.handleSubmit}>
           <Input
+            disabled={isLoading}
             margin="5px 0px 0px 0px"
             label="Email"
             name="email"
@@ -36,6 +38,7 @@ export const LoginPage = () => {
             }
           />
           <Input
+            disabled={isLoading}
             margin="5px 0px 0px 0px"
             label="Password"
             name="password"
@@ -53,13 +56,15 @@ export const LoginPage = () => {
             type="submit"
             margin="10px 0px 0px 0px"
             color="#fff"
-            disabled={!formik.isValid || !formik.dirty}
+            disabled={!formik.isValid || !formik.dirty || isLoading}
           >
             Send
           </Button>
         </Form>
         <Link to="/registration">Sing up</Link>
       </FormWrapper>
+
+      {isLoading && <Portal/>}
     </AuthSection>
   );
 };

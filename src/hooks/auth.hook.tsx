@@ -9,6 +9,7 @@ import { UserStructure } from "utils/superStruct";
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [isReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ export const useAuth = () => {
 
   async function login(data: UserLoginData) {
     try {
+      setIsLoading(true);
       const res = await handleAuthorization(data);
       setToken(res.data.token);
       setIsAuth(true);
@@ -34,6 +36,9 @@ export const useAuth = () => {
     } catch (e) {
       setIsAuth(false);
       setUserData(null);
+    }
+    finally{
+      setIsLoading(false)
     }
   }
 
@@ -44,5 +49,5 @@ export const useAuth = () => {
   }
 
 
-  return { isAuth, isReady, userData, login, logout };
+  return { isAuth, isReady, userData, login, logout, isLoading };
 };

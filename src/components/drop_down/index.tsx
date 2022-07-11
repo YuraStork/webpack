@@ -1,19 +1,26 @@
 import { FC, useState } from "react";
 import { DropDownContainer } from "./styles";
+import { CSSTransition, Transition } from "react-transition-group";
 
 type DropDownTypes = {
-  list: string[]
-}
+  list: string[];
+};
 
 export const DropDown: FC<DropDownTypes> = ({ list }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => setIsOpen(!isOpen);
-  return <DropDownContainer isOpen={isOpen}>
-    <div onClick={handleOpen}>{isOpen ? "close" : "open"}</div>
-    {isOpen && <div>
-      {list.map(label => <div key={label}>{label}</div>)}
+  return (
+    <DropDownContainer isOpen={isOpen}>
+      <div className="alert" onClick={handleOpen}>
+        {isOpen ? "close" : "open"}
+      </div>
 
-    </div>}
-  </DropDownContainer>
-} 
+      <div>
+        {isOpen &&
+          list.map(label => <div key={label}>{label}</div>)
+        }
+      </div>
+    </DropDownContainer>
+  );
+};

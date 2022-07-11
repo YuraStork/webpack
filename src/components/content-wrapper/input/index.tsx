@@ -11,6 +11,7 @@ type InputProps = {
   id?: string;
   onChange?: (e: any) => void;
   onBlur?: (e: any) => void;
+  disabled?: boolean
 };
 
 export const Input: FC<InputProps> = ({ label, ...rest }) => {

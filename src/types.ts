@@ -22,4 +22,17 @@ export interface AuthContextTypes {
   userData: UserData | null;
   login: (data: UserLoginData) => void;
   logout: () => void;
+  isLoading: boolean;
 }
+
+export interface PokemonShortData {
+  name: string
+  url: string
+}
+export interface PokemonsResponse {
+  count: number
+  next: any
+  previous: any
+  results: PokemonShortData[]
+}
+
