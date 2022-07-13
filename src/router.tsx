@@ -19,14 +19,13 @@ export const Router = () => {
         { path: "home", element: <HomePage /> },
         { path: "about", element: <AboutPage /> },
         { path: "contacts", element: <ContactsPage /> },
-        { path: "/", element: <Navigate replace to="/home" /> },
+        { path: "/", element: <Navigate replace to="/about" /> },
    
       ],
     },
     { path: "/login", element: <>You have already signed in</> },
     { path: "/registration", element: <>You have already signed up</> },
     { path: "*", element: <div>Not-found</div> },
- 
   ]);
 
   const authRoutes = useRoutes([

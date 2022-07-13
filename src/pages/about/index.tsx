@@ -9,11 +9,12 @@ import {
   CardStyled,
   Card,
   ButtonStyled,
+  Mask
 } from "./styles";
 
 export const AboutPage = () => {
-  let rotateY = 69;
-  let rotateX = -17;
+  let rotateX = 0;
+  let rotateY = 0;
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
 
@@ -29,19 +30,21 @@ export const AboutPage = () => {
     if (ref.current?.style) {
       switch (e.key) {
         case "ArrowUp":
-          ref.current.style.transform = `rotateX(${(rotateX += 4)}deg) rotateY(${rotateY}deg)`;
+          rotateX += 4;
           break;
         case "ArrowDown":
-          ref.current.style.transform = `rotateX(${(rotateX -= 4)}deg) rotateY(${rotateY}deg)`;
+          rotateX -= 4;
           break;
         case "ArrowRight":
-          ref.current.style.transform = `rotateY(${(rotateY += 4)}deg)`;
+          rotateY += 4;
           break;
         case "ArrowLeft":
-          ref.current.style.transform = `rotateY(${(rotateY -= 4)}deg)`;
+          rotateY -= 4;
           break;
       }
+      ref.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     }
+  
   }
 
   return (
@@ -103,16 +106,7 @@ export const AboutPage = () => {
             <div>4</div>
           </div>
         </TriangleContainer>
-        <KubContainer ref={ref}>
-          <div>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-          </div>
-        </KubContainer>
+       
 
         <RectangleContainer>
           <div>
@@ -124,6 +118,21 @@ export const AboutPage = () => {
             <div>6</div>
           </div>
         </RectangleContainer>
+
+        <Mask>
+          <img src="https://www.w3schools.com/css/img_5terre.jpg" alt=""  width="600" height="400"/>
+        </Mask>
+
+        <KubContainer >
+          <div ref={ref}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+          </div>
+        </KubContainer>
       </Container>
     </AboutSection>
   );

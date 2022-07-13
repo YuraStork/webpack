@@ -21,13 +21,13 @@ const AboutSection = styled.section`
   border: 1px solid ${(p) => p.theme.colors.light_gray};
   background-color: #0e1124;
 
-  .enter{
+  .enter {
     animation: ${nodeAnimation} 1s ease forwards;
   }
-  .enterDone{
-    animation: ${nodeAnimationRotate} 1s ease forwards; 
+  .enterDone {
+    animation: ${nodeAnimationRotate} 1s ease forwards;
   }
-  .exit{
+  .exit {
     animation: ${nodeAnimation} 1s ease reverse forwards;
   }
 
@@ -101,50 +101,71 @@ const AboutSection = styled.section`
   }
 `;
 
-const KubContainer = styled.div`
-  width: 200px;
-  height: 200px;
-  perspective: 1000px;
-  position: relative;
-  margin-left: 100px;
-  margin-top: 200px;
+const maskAnimation = keyframes`
+  0%{
+    transform: translateY(0px);
+  }
+  50%{
+    transform: translateY(-200px);
+  }
+  100%{
+    transform: translateY(0px);
+  }
+`
+const Mask = styled.div`
 
-  & > div {
+   mask-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1024px-Spotify_logo_with_text.svg.png');
+   mask-size: 600px 200px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;    
+  mask-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1024px-Spotify_logo_with_text.svg.png');
+
+  &>img{
+    animation: ${maskAnimation} infinite 15s linear; 
+  }
+  
+`
+
+const KubContainer = styled.div`
+  position: relative;
+  margin: 200px auto;
+  width: 300px;
+  height: 300px;
+  perspective: 500px;
+
+  & > div:first-child {
     width: inherit;
     height: inherit;
     transform-style: preserve-3d;
-    transform: rotateX(-17deg) rotateY(69deg);
-    transition: all 0.1s ease-in;
 
     & > div {
-      width: 100%;
-      height: 100%;
       position: absolute;
-      border: 1px solid black;
-      backface-visibility: hidden;
+      width: inherit;
+      height: inherit;
+      border: 5px solid #fff;
+      font: normal 70px Arial;
       text-align: center;
-      font-size: 22px;
-      padding-top: 80px;
-      background-color: red;
+      line-height: 300px;
+      color: #fff;
     }
 
     & > div:nth-child(1) {
-      transform: translateZ(100px); //front
+      transform: translateZ(150px);
     }
     & > div:nth-child(6) {
-      transform: rotateY(180deg) translateZ(100px); //side
+      transform: rotateY(180deg) translateZ(150px);
     }
     & > div:nth-child(2) {
-      transform: rotateY(90deg) translateZ(100px); //right
+      transform: rotateY(90deg) translateZ(150px);
     }
     & > div:nth-child(3) {
-      transform: rotateY(-90deg) translateZ(100px); //left
+      transform: rotateY(-90deg) translateZ(150px);
     }
     & > div:nth-child(4) {
-      transform: rotateX(90deg) translateZ(100px); //top
+      transform: rotateX(90deg) translateZ(150px);
     }
     & > div:nth-child(5) {
-      transform: rotateX(-90deg) translateZ(100px); //top
+      transform: rotateX(-90deg) translateZ(150px);
     }
   }
 `;
@@ -436,4 +457,5 @@ export {
   CardStyled,
   ButtonStyled,
   Card,
+  Mask
 };
