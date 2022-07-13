@@ -9,10 +9,9 @@ import { LoginPage } from "pages/auth/login";
 import { RegistrationPage } from "pages/auth/registration";
 
 export const Router = () => {
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, isReady } = useContext(AuthContext);
 
   const privateRoutes = useRoutes([
-    { path: "/", element: <Navigate to="/home" /> },
     {
       path: "/",
       element: <ContentWrapper />,
@@ -20,11 +19,14 @@ export const Router = () => {
         { path: "home", element: <HomePage /> },
         { path: "about", element: <AboutPage /> },
         { path: "contacts", element: <ContactsPage /> },
+        { path: "/", element: <Navigate replace to="/home" /> },
+   
       ],
     },
     { path: "/login", element: <>You have already signed in</> },
     { path: "/registration", element: <>You have already signed up</> },
     { path: "*", element: <div>Not-found</div> },
+ 
   ]);
 
   const authRoutes = useRoutes([
@@ -33,5 +35,6 @@ export const Router = () => {
     { path: "*", element: <Navigate to="/login" /> },
   ]);
 
-  return isAuth ? privateRoutes : authRoutes;
+  if(!isReady)return <div>loader</div>
+  return isReady && isAuth ? privateRoutes : authRoutes;
 };

@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body{
-    overflow: hidden;
+    overflow-x: hidden;
     font-family: Roboto;
   }
   li{

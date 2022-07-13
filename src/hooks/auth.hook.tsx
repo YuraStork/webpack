@@ -8,7 +8,7 @@ import { UserStructure } from "utils/superStruct";
 
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
-  const [isReady] = useState(false);
+  const [isReady,setIsReady] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const navigate = useNavigate();
@@ -20,9 +20,11 @@ export const useAuth = () => {
       if (is(user, UserStructure)) {
         setUserData({ token, user });
         setIsAuth(true);
-        navigate("/home")
+        navigate("/")
       }
     }
+
+    setIsReady(true);
   }, [])
 
   async function login(data: UserLoginData) {
