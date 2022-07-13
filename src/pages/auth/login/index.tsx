@@ -5,10 +5,11 @@ import { initialValues, validationSchema, onSubmit } from "./const";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "context/auth.context";
-import { Input } from "components/container";
+
 import { Button } from "components/button/styles";
 import { Portal } from "utils/portal";
 import { Loader } from "components/loader";
+import { Input } from "components/input";
 
 export const LoginPage = () => {
   const { login, isLoading } = useContext(AuthContext);

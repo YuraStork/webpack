@@ -1,30 +1,36 @@
-import { handleAuthorization } from "api/user.api";
+import { getUser, handleAuthorization } from "api/user.api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { decodeJWT, setToken } from "services/token.service";
 import { UserData, UserLoginData } from "types";
 import { is } from "superstruct"
-import { UserStructure } from "utils/superStruct";
+import { UserTokenStructure } from "utils/superStruct";
 
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
-  const [isReady,setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const initializationUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
       const user = decodeJWT(token);
-      if (is(user, UserStructure)) {
-        setUserData({ token, user });
-        setIsAuth(true);
-        navigate("/")
+      if (is(user, UserTokenStructure)) {
+        const { data } = await getUser(user.id);
+        if (data) {
+          setUserData({ token, user: { ...data } });
+          setIsAuth(true);
+          navigate("/")
+        }
       }
     }
-
     setIsReady(true);
+  }
+
+  useEffect(() => {
+    initializationUser()
   }, [])
 
   async function login(data: UserLoginData) {
@@ -39,7 +45,7 @@ export const useAuth = () => {
       setIsAuth(false);
       setUserData(null);
     }
-    finally{
+    finally {
       setIsLoading(false)
     }
   }

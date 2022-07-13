@@ -1,6 +1,6 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
-import { UserLoginData, UserRegistrationData } from "types";
+import { User, UserData, UserLoginData, UserRegistrationData } from "types";
 import { API } from "./const";
 
 export const handleAuthorization = async (data: UserLoginData) => {
@@ -25,3 +25,6 @@ export const handleRegistration = async (data: UserRegistrationData) => {
     throw e;
   }
 };
+
+export const getUser = async (id: string) => await axios.get<User | null>(`${API}/user/${id}`);
+

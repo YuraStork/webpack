@@ -6,10 +6,43 @@ export interface UserRegistrationData extends UserLoginData {
   name: string;
   age: number;
 }
+
+// export enum UserKeys {
+//   _id = "_id",
+//   name = "name",
+//   role = "role",
+//   email = "email",
+//   country = "country",
+//   city = "city",
+//   color = "color",
+//   gander = "gander",
+//   biography = "biography",
+//   date = "date",
+// }
+// export interface User {
+//   [UserKeys._id]: string;
+//   [UserKeys.name]: string;
+//   [UserKeys.role]: string;
+//   [UserKeys.email]: string;
+//   [UserKeys.country]: string;
+//   [UserKeys.city]: string;
+//   [UserKeys.color]: string;
+//   [UserKeys.gander]: string;
+//   [UserKeys.biography]: string;
+//   [UserKeys.date]: string;
+// }
 export interface User {
-  id: string;
+  _id: string;
   name: string;
+  age: string;
   role: string;
+  email: string;
+  country: string;
+  city: string;
+  color: string;
+  gander: string;
+  date: string;
+  biography: string;
 }
 export interface UserData {
   token: string;

@@ -17,17 +17,14 @@ const maskAnimation = keyframes`
 `;
 
 const Mask = styled.div`
-   mask-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1024px-Spotify_logo_with_text.svg.png');
-   mask-size: 600px 200px;
+  mask-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1024px-Spotify_logo_with_text.svg.png");
+  mask-size: 600px 200px;
   -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;    
-  mask-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1024px-Spotify_logo_with_text.svg.png');
+  mask-repeat: no-repeat;
+  mask-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1024px-Spotify_logo_with_text.svg.png");
 
-  &>img{
-    animation: ${maskAnimation} infinite 15s linear; 
+  & > img {
+    animation: ${maskAnimation} infinite 15s linear;
   }
-`
-export {
-  AboutSection,
-  Mask
-};
+`;
+export { AboutSection, Mask };

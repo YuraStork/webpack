@@ -7,6 +7,7 @@ import { AboutPage } from "pages/about";
 import { ContactsPage } from "pages/contacts";
 import { LoginPage } from "pages/auth/login";
 import { RegistrationPage } from "pages/auth/registration";
+import { UserCabinet } from "pages/userCabinet";
 
 export const Router = () => {
   const { isAuth, isReady } = useContext(AuthContext);
@@ -19,8 +20,8 @@ export const Router = () => {
         { path: "home", element: <HomePage /> },
         { path: "about", element: <AboutPage /> },
         { path: "contacts", element: <ContactsPage /> },
-        { path: "/", element: <Navigate replace to="/about" /> },
-   
+        { path: "cabinet", element: <UserCabinet /> },
+        { path: "/", element: <Navigate replace to="/cabinet" /> },
       ],
     },
     { path: "/login", element: <>You have already signed in</> },
@@ -34,6 +35,6 @@ export const Router = () => {
     { path: "*", element: <Navigate to="/login" /> },
   ]);
 
-  if(!isReady)return <div>loader</div>
+  if (!isReady) return <div>loader</div>
   return isReady && isAuth ? privateRoutes : authRoutes;
 };
