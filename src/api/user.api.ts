@@ -1,30 +1,36 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { User, UserData, UserLoginData, UserRegistrationData } from "types";
+import { AuthorizedUser, SavedUserObject, UserLoginFormData, UserRegistrationData } from "types";
 import { API } from "./const";
 
-export const handleAuthorization = async (data: UserLoginData) => {
+export const handleAuthorization = async (data: UserLoginFormData) => {
   try {
-    const res = await axios.post(`${API}/user/login`, data);
-    toast.success("Sing in success");
+    const res = await axios.post<SavedUserObject>(`${API}/user/login`, data);
     return res;
   } catch (e: AxiosError | any) {
     toast.error(((e as AxiosError).response?.data as string) || "Error");
-    throw e;
+    return null;
   }
 };
 
 export const handleRegistration = async (data: UserRegistrationData) => {
   try {
     const res = await axios.post(`${API}/user/register`, data);
-    toast.success("Sing up success");
     return res;
   } catch (e) {
-    console.log("Error", e);
     toast.error(((e as AxiosError).response?.data as string) || "Error");
-    throw e;
+    return null;
   }
 };
 
-export const getUser = async (id: string) => await axios.get<User | null>(`${API}/user/${id}`);
+export const getUser = async (id: string) => {
+  // try {
+  const res = await axios.get<AuthorizedUser | null>(`${API}/user/${id}`);
+  return res;
+  // }
+  // catch (e) {
+  //   toast.error(((e as AxiosError).response?.data as string) || "Error");
+  //   throw e;
+  // }
+};
 

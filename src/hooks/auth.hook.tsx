@@ -1,61 +1,50 @@
-import { getUser, handleAuthorization } from "api/user.api";
+import { handleAuthorization } from "api/user.api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { decodeJWT, setToken } from "services/token.service";
-import { UserData, UserLoginData } from "types";
-import { is } from "superstruct"
-import { UserTokenStructure } from "utils/superStruct";
+import { getSavedUser, saveUserInStorage } from "services/token.service";
+import { SavedUserObject, UserLoginFormData } from "types";
 
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<SavedUserObject | null>(null);
   const navigate = useNavigate();
 
-  const initializationUser = async () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = decodeJWT(token);
-      if (is(user, UserTokenStructure)) {
-        const { data } = await getUser(user.id);
-        if (data) {
-          setUserData({ token, user: { ...data } });
-          setIsAuth(true);
-          navigate("/")
-        }
-      }
+  useEffect(() => {
+    initializationUser();
+  }, []);
+
+  function initializationUser() {
+    const user = getSavedUser();
+    if (user) {
+      setUserData({ token: user.token, user: user.user });
+      setIsAuth(true);
+      navigate("/home");
     }
     setIsReady(true);
-  }
+  };
 
-  useEffect(() => {
-    initializationUser()
-  }, [])
-
-  async function login(data: UserLoginData) {
-    try {
-      setIsLoading(true);
-      const res = await handleAuthorization(data);
-      setToken(res.data.token);
+  async function login(data: UserLoginFormData) {
+    setIsLoading(true);
+    const res = await handleAuthorization(data);
+    if (res) {
+      saveUserInStorage(res.data);
       setIsAuth(true);
       setUserData(res.data);
       navigate("/home");
-    } catch (e) {
-      setIsAuth(false);
-      setUserData(null);
     }
-    finally {
-      setIsLoading(false)
-    }
+
+    setIsLoading(false);
+    setIsReady(true);
   }
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setIsAuth(false)
+  function logout() {
+    localStorage.removeItem("user");
+    setIsAuth(false);
     setUserData(null);
+    navigate("/login");
   }
-
 
   return { isAuth, isReady, userData, login, logout, isLoading };
 };

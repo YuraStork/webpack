@@ -1,38 +1,13 @@
-export interface UserLoginData {
+export interface UserLoginFormData {
   email: string;
   password: string;
 }
-export interface UserRegistrationData extends UserLoginData {
+export interface UserRegistrationData extends UserLoginFormData {
   name: string;
   age: number;
 }
-
-// export enum UserKeys {
-//   _id = "_id",
-//   name = "name",
-//   role = "role",
-//   email = "email",
-//   country = "country",
-//   city = "city",
-//   color = "color",
-//   gander = "gander",
-//   biography = "biography",
-//   date = "date",
-// }
-// export interface User {
-//   [UserKeys._id]: string;
-//   [UserKeys.name]: string;
-//   [UserKeys.role]: string;
-//   [UserKeys.email]: string;
-//   [UserKeys.country]: string;
-//   [UserKeys.city]: string;
-//   [UserKeys.color]: string;
-//   [UserKeys.gander]: string;
-//   [UserKeys.biography]: string;
-//   [UserKeys.date]: string;
-// }
-export interface User {
-  _id: string;
+export interface AuthorizedUser {
+  id: string;
   name: string;
   age: string;
   role: string;
@@ -44,16 +19,16 @@ export interface User {
   date: string;
   biography: string;
 }
-export interface UserData {
+export interface SavedUserObject {
   token: string;
-  user: User;
+  user: Pick<AuthorizedUser, "name" | "role" | "id">;
 }
 
 export interface AuthContextTypes {
   isAuth: boolean;
   isReady: boolean;
-  userData: UserData | null;
-  login: (data: UserLoginData) => void;
+  userData: SavedUserObject | null;
+  login: (data: UserLoginFormData) => void;
   logout: () => void;
   isLoading: boolean;
 }
