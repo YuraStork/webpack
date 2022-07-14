@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios";
-import { UserCabinetTypes } from "pages/userCabinet/types";
 import { toast } from "react-toastify";
 import { getToken } from "services/token.service";
 import { AuthorizedUser, SavedUserObject, UserLoginFormData, UserRegistrationData } from "types";
 import { API } from "./const";
+
 
 export const handleAuthorization = async (data: UserLoginFormData) => {
   try {
@@ -27,7 +27,7 @@ export const handleRegistration = async (data: UserRegistrationData) => {
 
 export const getUser = async (id: string, logout: () => void) => {
   try {
-    const res = await axios.get<AuthorizedUser | null>(`${API}/user/${id}`);
+    const res = await axios.get<AuthorizedUser | null>(`${API}/user/${id}`, { headers: { "Authorization": `Bearer ${getToken()}` } });
     return res;
   }
   catch (e) {
@@ -36,7 +36,6 @@ export const getUser = async (id: string, logout: () => void) => {
     return null;
   }
 };
-
 
 export const updateUserData = async (data: any) => {
   try {
