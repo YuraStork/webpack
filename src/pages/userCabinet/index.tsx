@@ -7,18 +7,19 @@ import { useContext, useEffect, useState } from "react";
 import { MainTitle } from "styles/typography/styles";
 import { UserCabinetSection, UserForm } from "./styles";
 import { setInitialValues, onSubmit, validationSchema, defaultUserValues } from "./const";
-import { AuthorizedUser } from "types";
 import { getUser } from "api/user.api";
+import { TextEditor } from "components/textEditor";
 
 export const UserCabinet = () => {
   const [editMode, setEditMode] = useState(false);
   const { userData, logout } = useContext(AuthContext);
   const [userFullData, setUserFullData] = useState<any>(defaultUserValues);
   const [isLoading, setIsLoading] = useState(false);
+  const [biography, setBiography] = useState("");
 
   const handleEdit = () => setEditMode(!editMode);
   const userFields: any = Object.entries(userFullData || {}).filter(
-    ([key, value]) => key !== "id" && key !== "role" && key !== "email"
+    ([key, value]) => key !== "id" && key !== "role" && key !== "email" && key !== "biography"
   );
 
   const getUserData = async () => {
@@ -36,7 +37,7 @@ export const UserCabinet = () => {
 
   const formik = useFormik({
     initialValues: setInitialValues(userFullData),
-    onSubmit: (data, helper) => onSubmit({ ...data, id: userData?.user.id || "", handleEdit }, helper),
+    onSubmit: (data, helper) => onSubmit({ ...data, id: userData?.user.id || "", biography, handleEdit }, helper),
     validationSchema,
     enableReinitialize: true,
   });
@@ -55,14 +56,15 @@ export const UserCabinet = () => {
                 label={key}
                 name={key}
                 type="text"
-                value={formik.values[key]}
+                value={formik.values[key] || ""}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             ))}
+            <TextEditor name="biography" onChange={(str: string) => setBiography(str)} value={userFullData.biography} />
             <Button type="submit">Save</Button>
           </UserForm>
-        ) : (
+        ) : <>
           <ul>
             {userFields.map((p: any) => (
               <li key={p[0]}>
@@ -70,12 +72,14 @@ export const UserCabinet = () => {
               </li>
             ))}
           </ul>
-        )}
-        {!editMode && (
-          <div>
-            <Button onClick={handleEdit}>Edit</Button>
-          </div>
-        )}
+
+          {!editMode && (
+            <div>
+              <Button onClick={handleEdit}>Edit</Button>
+            </div>
+          )}
+        </>
+        }
       </Container>
     </UserCabinetSection>
   );

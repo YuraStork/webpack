@@ -5,7 +5,7 @@ type InputProps = {
   margin?: string;
   type: string;
   label: string;
-  value: string | number;
+  value: any;
   name: string;
   error?: string;
   id?: string;
