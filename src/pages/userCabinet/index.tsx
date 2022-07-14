@@ -3,53 +3,79 @@ import { Container } from "components/container/styles";
 import { Input } from "components/input";
 import { AuthContext } from "context/auth.context";
 import { useFormik } from "formik";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MainTitle } from "styles/typography/styles";
 import { UserCabinetSection, UserForm } from "./styles";
-import { setInitialValues, onSubmit, validationSchema } from "./const"
-import { User } from "types";
+import { setInitialValues, onSubmit, validationSchema, defaultUserValues } from "./const";
+import { AuthorizedUser } from "types";
+import { getUser } from "api/user.api";
 
 export const UserCabinet = () => {
   const [editMode, setEditMode] = useState(false);
-  const { userData } = useContext(AuthContext);
+  const { userData, logout } = useContext(AuthContext);
+  const [userFullData, setUserFullData] = useState<any>(defaultUserValues);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleEdit = () => setEditMode(!editMode);
-  const userFields: any = Object.entries(userData!.user).filter(([key, value]) => key !== "_id" && key !== "role" && key !== "email");
+  const userFields: any = Object.entries(userFullData || {}).filter(
+    ([key, value]) => key !== "id" && key !== "role" && key !== "email"
+  );
+
+  const getUserData = async () => {
+    setIsLoading(true);
+    const res = await getUser(userData?.user.id || "", logout);
+    if (res) {
+      setUserFullData(res?.data);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   const formik = useFormik({
-    initialValues: setInitialValues(userData!.user),
-    onSubmit,
+    initialValues: setInitialValues(userFullData),
+    onSubmit: (data, helper) => onSubmit({ ...data, id: userData?.user.id || "", handleEdit }, helper),
     validationSchema,
-    enableReinitialize: true
-  })
+    enableReinitialize: true,
+  });
 
   return (
     <UserCabinetSection>
       <Container>
         <MainTitle>Cabinet</MainTitle>
-        {editMode ? (
+        {isLoading ? (
+          <h1>Loading...</h1>
+        ) : editMode ? (
           <UserForm onSubmit={formik.handleSubmit}>
-            {
-              userFields.map(([key, value]: any) => (
-                <Input key={key} label={key} name={key} type="text" value={formik.values[key]} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-              ))
-            }
+            {userFields.map(([key, value]: any) => (
+              <Input
+                key={key}
+                label={key}
+                name={key}
+                type="text"
+                value={formik.values[key]}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            ))}
             <Button type="submit">Save</Button>
           </UserForm>
         ) : (
           <ul>
-            {
-              userFields.map((p: any) => (
-                <li key={p[0]}>{p[0]}: {p[1]}</li>
-              ))
-            }
+            {userFields.map((p: any) => (
+              <li key={p[0]}>
+                {p[0]}: {p[1]}
+              </li>
+            ))}
           </ul>
         )}
-        {
-          !editMode && <div>
+        {!editMode && (
+          <div>
             <Button onClick={handleEdit}>Edit</Button>
           </div>
-        }
-
+        )}
       </Container>
     </UserCabinetSection>
   );

@@ -13,4 +13,13 @@ export const getSavedUser = (): SavedUserObject | null => {
   return null;
 }
 
+export const getToken = () => {
+  const user = localStorage.getItem("user");
+  if (user) {
+    const obj: SavedUserObject = JSON.parse(user)
+    return obj.token
+  }
+  return null;
+}
+
 export const decodeJWT = (token: string) => jwtDecode(token)
