@@ -1,15 +1,14 @@
 import { BurgerMenu } from "components/burger-menu";
-import { DropDown } from "components/drop_down";
-import { AuthContext } from "context/auth.context";
-import { useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { logout } from "store/reducers/user.reducer";
+import { useAppDispatch } from "store/store";
 import { Container } from "../container/styles";
 import { LINKS } from "./const";
 import { HeaderComponent, BurgerWrapper, HeaderNavigation, HeaderUserBlock } from "./styles";
 
 export const Header = () => {
-  const { logout, userData } = useContext(AuthContext)
-  const {pathname} = useLocation();
+  const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
   return (
     <HeaderComponent>
       <Container>
@@ -29,7 +28,7 @@ export const Header = () => {
 
         <HeaderUserBlock>
           {pathname !== "/cabinet" && <Link to="/cabinet">My Cabinet</Link>}
-          <button onClick={logout}>logout</button>
+          <button onClick={() => dispatch(logout())}>logout</button>
         </HeaderUserBlock>
       </Container>
     </HeaderComponent>

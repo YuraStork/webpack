@@ -2,21 +2,23 @@ import { useFormik } from "formik";
 import { MainTitle } from "styles/typography/styles";
 import { AuthSection, Form, FormWrapper } from "../styles";
 import { initialValues, validationSchema, onSubmit } from "./const";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "context/auth.context";
-
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "components/button/styles";
 import { Portal } from "utils/portal";
 import { Loader } from "components/loader";
 import { Input } from "components/input";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { getUser } from "store/selectors/user.selector";
 
 export const LoginPage = () => {
-  const { login, isLoading } = useContext(AuthContext);
+  const { isLoading } = useAppSelector(getUser);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (data: any, helper: any) => onSubmit(data, helper, login),
+    onSubmit: (data: any, helper: any) => onSubmit(data, helper, dispatch, navigate),
   });
 
   return (
@@ -66,7 +68,7 @@ export const LoginPage = () => {
         <Link to="/registration">Sing up</Link>
       </FormWrapper>
 
-      {isLoading && <Portal><Loader/></Portal>}
+      {isLoading && <Portal><Loader /></Portal>}
     </AuthSection>
   );
 };

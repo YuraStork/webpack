@@ -1,4 +1,7 @@
-import { UserLoginData } from "types";
+import { NavigateFunction } from "react-router-dom";
+import { AppDispatch } from "store/store";
+import { UserLoginThunk } from "store/thunks/user.thunk";
+import { UserLoginFormData } from "types";
 import { cryptoSha256 } from "utils/cryptoPassord";
 import * as yup from "yup";
 
@@ -7,17 +10,20 @@ export const validationSchema = yup.object().shape({
   password: yup.string().min(6, "min 6").required("Required"),
 });
 
-export const initialValues: UserLoginData = {
+export const initialValues: UserLoginFormData = {
   email: "",
   password: "",
 };
 
 export const onSubmit = (
-  data: UserLoginData,
+  data: UserLoginFormData,
   formikHelper: any,
-  login: any
+  dispatch: AppDispatch,
+  navigate: NavigateFunction
 ): void => {
   const password = cryptoSha256(data.password);
-  login({ ...data, password });
+  dispatch(UserLoginThunk({ ...data, password })).unwrap().then(() => {
+    navigate("/home")
+  })
   formikHelper.resetForm();
 };
