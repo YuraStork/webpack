@@ -1,17 +1,24 @@
-import { AuthContext } from "context/auth.context";
 import { PokemonsContext } from "context/pokemons.context";
-import { useAuth } from "hooks/auth.hook";
 import { usePokemons } from "hooks/pokemons.hook";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { initializeUser } from "store/reducers/user.reducer";
+import { useAppDispatch } from "store/store";
 import { Router } from "./router";
 
 export const App = () => {
-  const auth = useAuth();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(initializeUser());
+    navigate("/home");
+  }, [])
+
   const pokemons = usePokemons();
   return (
-    <AuthContext.Provider value={{ ...auth }}>
-      <PokemonsContext.Provider value={{ ...pokemons }}>
-        <Router />
-      </PokemonsContext.Provider>
-    </AuthContext.Provider>
+    <PokemonsContext.Provider value={{ ...pokemons }}>
+      <Router />
+    </PokemonsContext.Provider>
   );
 };

@@ -1,9 +1,15 @@
 import { number, object, string } from "superstruct";
 
-export const UserStructure = object({
+export const UserDataStructure = object({
   id: string(),
   name: string(),
+  age: number(),
   role: string(),
-  exp: number(),
-  iat: number()
+  email: string(),
+  country: string(),
+  city: string(),
+  color: string(),
+  gander: string(),
+  biography: string(),
+  date: string(),
 })

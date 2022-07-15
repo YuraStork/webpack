@@ -13,6 +13,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
+      store: path.resolve(__dirname, "src", "store"),
       pages: path.resolve(__dirname, "src", "pages"),
       public: path.resolve(__dirname, "public"),
       api: path.resolve(__dirname, "src", "api"),

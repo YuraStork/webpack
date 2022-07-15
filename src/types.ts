@@ -1,26 +1,34 @@
-export interface UserLoginData {
+export interface UserLoginFormData {
   email: string;
   password: string;
 }
-export interface UserRegistrationData extends UserLoginData {
+export interface UserRegistrationData extends UserLoginFormData {
   name: string;
   age: number;
 }
-export interface User {
+export interface AuthorizedUser {
   id: string;
   name: string;
+  age: string;
   role: string;
+  email: string;
+  country: string;
+  city: string;
+  color: string;
+  gander: string;
+  date: string;
+  biography: string;
 }
-export interface UserData {
+export interface SavedUserObject {
   token: string;
-  user: User;
+  user: Pick<AuthorizedUser, "name" | "role" | "id">;
 }
 
 export interface AuthContextTypes {
   isAuth: boolean;
   isReady: boolean;
-  userData: UserData | null;
-  login: (data: UserLoginData) => void;
+  userData: SavedUserObject | null;
+  login: (data: UserLoginFormData) => void;
   logout: () => void;
   isLoading: boolean;
 }

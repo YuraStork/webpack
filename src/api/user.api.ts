@@ -1,27 +1,50 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { UserLoginData, UserRegistrationData } from "types";
+import { getToken } from "services/token.service";
+import { AuthorizedUser, SavedUserObject, UserLoginFormData, UserRegistrationData } from "types";
 import { API } from "./const";
 
-export const handleAuthorization = async (data: UserLoginData) => {
+
+export const handleAuthorization = async (data: UserLoginFormData) => {
   try {
-    const res = await axios.post(`${API}/user/login`, data);
-    toast.success("Sing in success");
+    const res = await axios.post<SavedUserObject>(`${API}/user/login`, data);
     return res;
   } catch (e: AxiosError | any) {
     toast.error(((e as AxiosError).response?.data as string) || "Error");
-    throw e;
+    return null;
   }
 };
 
 export const handleRegistration = async (data: UserRegistrationData) => {
   try {
     const res = await axios.post(`${API}/user/register`, data);
-    toast.success("Sing up success");
     return res;
   } catch (e) {
-    console.log("Error", e);
     toast.error(((e as AxiosError).response?.data as string) || "Error");
-    throw e;
+    return null;
   }
 };
+
+export const getUser = async (id: string, logout: () => void) => {
+  try {
+    const res = await axios.get<AuthorizedUser | null>(`${API}/user/${id}`, { headers: { "Authorization": `Bearer ${getToken()}` } });
+    return res;
+  }
+  catch (e) {
+    toast.error(((e as AxiosError).response?.data as string) || "Error");
+    logout();
+    return null;
+  }
+};
+
+export const updateUserData = async (data: any) => {
+  try {
+    const res = await axios.put(`${API}/user/update`, data, { headers: { "Authorization": `Bearer ${getToken()}` } });
+    console.log(res);
+    return res;
+  }
+  catch (e) {
+    toast.error("Помилка");
+    return null;
+  }
+}

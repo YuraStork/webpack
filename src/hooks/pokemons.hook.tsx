@@ -18,8 +18,6 @@ export const usePokemons = () => {
       const res = await getPokemons(limit, offset);
       setPokemons(res.data.results);
       setCount(res.data.count);
-      toast.success("Load success");
-
     }
     catch (e) {
       toast.error("Load fail")
