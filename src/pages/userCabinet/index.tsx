@@ -9,6 +9,7 @@ import { UserCabinetSection, UserForm } from "./styles";
 import { setInitialValues, onSubmit, validationSchema, defaultUserValues } from "./const";
 import { getUser } from "api/user.api";
 import { TextEditor } from "components/textEditor";
+import { ImageCrop } from "components/image-crop";
 
 export const UserCabinet = () => {
   const [editMode, setEditMode] = useState(false);
@@ -48,7 +49,8 @@ export const UserCabinet = () => {
         <MainTitle>Cabinet</MainTitle>
         {isLoading ? (
           <h1>Loading...</h1>
-        ) : editMode ? (
+        ) : editMode ? (<>
+          <ImageCrop />
           <UserForm onSubmit={formik.handleSubmit}>
             {userFields.map(([key, value]: any) => (
               <Input
@@ -64,7 +66,7 @@ export const UserCabinet = () => {
             <TextEditor name="biography" onChange={(str: string) => setBiography(str)} value={userFullData.biography} />
             <Button type="submit">Save</Button>
           </UserForm>
-        ) : <>
+        </>) : <>
           <ul>
             {userFields.map((p: any) => (
               <li key={p[0]}>
