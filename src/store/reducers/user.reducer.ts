@@ -1,8 +1,9 @@
+import { AuthorizedUser } from "./../../types";
 import { USER_REDUCER } from "../const";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getSavedUser, saveUserInStorage } from "services/token.service";
 import { SavedUserObject } from "types";
-import { UserLoginThunk } from "store/thunks/user.thunk";
+import { getUserProfileThunk, updateUserProfileThunk, UserLoginThunk } from "store/thunks/user.thunk";
 
 type initialStateTypes = {
   isAuth: boolean,
@@ -86,6 +87,30 @@ export const UserReducer = createSlice({
     builder.addCase(UserLoginThunk.rejected, (state) => {
       state.isLoading = false;
       state.isAuth = false;
+      state.error = "Error";
+    })
+
+    builder.addCase(getUserProfileThunk.pending, (state) => {
+      state.isLoading = true;
+    })
+    builder.addCase(getUserProfileThunk.fulfilled, (state, { payload }: PayloadAction<AuthorizedUser>) => {
+      state.isLoading = false;
+      state.data = { ...payload };
+    })
+    builder.addCase(getUserProfileThunk.rejected, (state) => {
+      state.isLoading = false;
+      state.isAuth = false;
+      state.error = "Error";
+    })
+
+    builder.addCase(updateUserProfileThunk.pending, (state) => {
+      state.isLoading = true;
+    })
+    builder.addCase(updateUserProfileThunk.fulfilled, (state) => {
+      state.isLoading = false;
+    })
+    builder.addCase(updateUserProfileThunk.rejected, (state) => {
+      state.isLoading = false;
       state.error = "Error";
     })
   }

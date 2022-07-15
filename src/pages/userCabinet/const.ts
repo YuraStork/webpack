@@ -1,4 +1,4 @@
-import { updateUserData } from "api/user.api";
+import { AuthorizedUser } from "types";
 import * as yup from "yup";
 import { UserCabinetTypes } from "./types";
 
@@ -12,11 +12,11 @@ const defaultUserValues = {
   biography: "",
   date: ""
 }
-const setInitialValues = (data: UserCabinetTypes | null) => ({
+const setInitialValues = (data: AuthorizedUser) => ({
   name: data?.name || "",
   country: data?.country || "",
   city: data?.city || "",
-  age: data?.age || "",
+  age: data?.age || 18,
   color: data?.color || "",
   gander: data?.gander || "",
   biography: data?.biography || "",
@@ -34,11 +34,10 @@ const validationSchema = yup.object().shape({
   date: yup.date()
 })
 
-const onSubmit = async ({ id, handleEdit, ...data }: any, helper: any) => {
-  const requestBody = Object.fromEntries(Object.entries(data).filter(([key, value]) => value));
-  const res = await updateUserData({ ...data, id });
-  handleEdit();
-  console.log(requestBody);
+const filterFields = (userFields: AuthorizedUser): [keyof UserCabinetTypes, string][] => {
+  const res = Object.entries(userFields).filter(
+    ([key, value]) => key !== "id" && key !== "role" && key !== "email" && key !== "biography"
+  ) as [keyof UserCabinetTypes, string][]
+  return res;
 }
-
-export { setInitialValues, validationSchema, onSubmit, defaultUserValues }
+export { setInitialValues, validationSchema, defaultUserValues, filterFields }

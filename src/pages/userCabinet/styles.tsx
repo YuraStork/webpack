@@ -11,7 +11,4 @@ const UserForm = styled.form`
   min-width: 300px;
   max-width: 600px;
 `
-
-
-
 export { UserCabinetSection, UserForm }

@@ -7,17 +7,17 @@ export interface UserRegistrationData extends UserLoginFormData {
   age: number;
 }
 export interface AuthorizedUser {
-  id: string;
-  name: string;
-  age: string;
-  role: string;
-  email: string;
-  country: string;
-  city: string;
-  color: string;
-  gander: string;
-  date: string;
-  biography: string;
+  id: string | null;
+  name: string | null;
+  age: number | null;
+  role: string | null;
+  email: string | null;
+  country: string | null;
+  city: string | null;
+  color: string | null;
+  gander: string | null;
+  date: string | null;
+  biography: string | null;
 }
 export interface SavedUserObject {
   token: string;
@@ -27,7 +27,7 @@ export interface SavedUserObject {
 export interface AuthContextTypes {
   isAuth: boolean;
   isReady: boolean;
-  userData: SavedUserObject | null;
+  userData: SavedUserObject;
   login: (data: UserLoginFormData) => void;
   logout: () => void;
   isLoading: boolean;

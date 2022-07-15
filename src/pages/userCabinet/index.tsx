@@ -1,44 +1,41 @@
 import { Button } from "components/button/styles";
 import { Container } from "components/container/styles";
 import { Input } from "components/input";
-import { AuthContext } from "context/auth.context";
 import { useFormik } from "formik";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MainTitle } from "styles/typography/styles";
 import { UserCabinetSection, UserForm } from "./styles";
-import { setInitialValues, onSubmit, validationSchema, defaultUserValues } from "./const";
-import { getUser } from "api/user.api";
+import { filterFields, setInitialValues, validationSchema } from "./const";
 import { TextEditor } from "components/textEditor";
 import { ImageCrop } from "components/image-crop";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { getUser } from "store/selectors/user.selector";
+import { getUserProfileThunk, updateUserProfileThunk } from "store/thunks/user.thunk";
+import { UserCabinetTypes } from "./types";
 
 export const UserCabinet = () => {
   const [editMode, setEditMode] = useState(false);
-  const { userData, logout } = useContext(AuthContext);
-  const [userFullData, setUserFullData] = useState<any>(defaultUserValues);
-  const [isLoading, setIsLoading] = useState(false);
   const [biography, setBiography] = useState("");
-
+  const dispatch = useAppDispatch();
+  const { data, isLoading } = useAppSelector(getUser);
   const handleEdit = () => setEditMode(!editMode);
-  const userFields: any = Object.entries(userFullData || {}).filter(
-    ([key, value]) => key !== "id" && key !== "role" && key !== "email" && key !== "biography"
-  );
-
-  const getUserData = async () => {
-    setIsLoading(true);
-    const res = await getUser(userData?.user.id || "", logout);
-    if (res) {
-      setUserFullData(res?.data);
-    }
-    setIsLoading(false);
-  };
 
   useEffect(() => {
-    getUserData();
-  }, []);
+    dispatch(getUserProfileThunk(data.id!))
+  }, [])
+
+  const userFields: [keyof UserCabinetTypes, string][] = filterFields(data);
 
   const formik = useFormik({
-    initialValues: setInitialValues(userFullData),
-    onSubmit: (data, helper) => onSubmit({ ...data, id: userData?.user.id || "", biography, handleEdit }, helper),
+    initialValues: setInitialValues(data),
+
+    onSubmit: (profile, helper) => {;
+      const id = data?.id || ""
+      dispatch(updateUserProfileThunk({ ...profile, id, biography })).unwrap().then(() => {
+        dispatch(getUserProfileThunk(data.id || ""))
+      })
+      handleEdit();
+    },
     validationSchema,
     enableReinitialize: true,
   });
@@ -52,7 +49,7 @@ export const UserCabinet = () => {
         ) : editMode ? (<>
           <ImageCrop />
           <UserForm onSubmit={formik.handleSubmit}>
-            {userFields.map(([key, value]: any) => (
+            {userFields.map(([key]: [keyof UserCabinetTypes, string]) => (
               <Input
                 key={key}
                 label={key}
@@ -63,12 +60,12 @@ export const UserCabinet = () => {
                 onBlur={formik.handleBlur}
               />
             ))}
-            <TextEditor name="biography" onChange={(str: string) => setBiography(str)} value={userFullData.biography} />
+            <TextEditor name="biography" onChange={(str: string) => setBiography(str)} value={data.biography} />
             <Button type="submit">Save</Button>
           </UserForm>
         </>) : <>
           <ul>
-            {userFields.map((p: any) => (
+            {userFields.map((p) => (
               <li key={p[0]}>
                 {p[0]}: {p[1]}
               </li>

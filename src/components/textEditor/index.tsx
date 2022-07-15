@@ -19,11 +19,11 @@ const EditorWrapper = styled.div`
 type TextEditorProps = {
   name: string;
   onChange: (e: string) => void;
-  value: string;
+  value: string | null;
 }
 
 export const TextEditor: FC<TextEditorProps> = ({ name, onChange, value }) => {
-  const contentBlock = htmlToDraft(value);
+  const contentBlock = htmlToDraft(value || "");
   const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
 
   const [textState, setTextState] = useState(EditorState.createWithContent(contentState));
