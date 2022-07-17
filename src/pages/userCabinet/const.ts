@@ -8,7 +8,7 @@ const defaultUserValues = {
   city: "",
   age: "",
   color: "",
-  gander: "",
+  gender: "",
   biography: "",
   date: ""
 }
@@ -18,7 +18,7 @@ const setInitialValues = (data: AuthorizedUser) => ({
   city: data?.city || "",
   age: data?.age || 18,
   color: data?.color || "",
-  gander: data?.gander || "",
+  gender: data?.gender || "",
   biography: data?.biography || "",
   date: data?.date || ""
 })

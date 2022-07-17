@@ -15,7 +15,7 @@ export interface AuthorizedUser {
   country: string | null;
   city: string | null;
   color: string | null;
-  gander: string | null;
+  gender: string | null;
   date: string | null;
   biography: string | null;
 }

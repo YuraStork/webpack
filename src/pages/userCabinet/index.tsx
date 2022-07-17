@@ -15,10 +15,10 @@ import { UserCabinetTypes } from "./types";
 
 export const UserCabinet = () => {
   const [editMode, setEditMode] = useState(false);
-  const [biography, setBiography] = useState("");
   const dispatch = useAppDispatch();
   const { data, isLoading } = useAppSelector(getUser);
   const handleEdit = () => setEditMode(!editMode);
+  const [biography, setBiography] = useState(data.biography || "");
 
   useEffect(() => {
     dispatch(getUserProfileThunk(data.id!))
@@ -28,11 +28,11 @@ export const UserCabinet = () => {
 
   const formik = useFormik({
     initialValues: setInitialValues(data),
-
-    onSubmit: (profile, helper) => {;
+    onSubmit: (profile, helper) => {
+      ;
       const id = data?.id || ""
-      dispatch(updateUserProfileThunk({ ...profile, id, biography })).unwrap().then(() => {
-        dispatch(getUserProfileThunk(data.id || ""))
+      dispatch(updateUserProfileThunk({ ...profile, id, biography })).then(() => {
+        dispatch(getUserProfileThunk(data.id!))
       })
       handleEdit();
     },

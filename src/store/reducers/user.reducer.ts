@@ -20,7 +20,7 @@ type initialStateTypes = {
     country: null | string,
     city: null | string,
     color: null | string,
-    gander: null | string,
+    gender: null | string,
     date: null | string,
     biography: null | string,
   }
@@ -41,7 +41,7 @@ const initialState: initialStateTypes = {
     country: null,
     city: null,
     color: null,
-    gander: null,
+    gender: null,
     date: null,
     biography: null,
   }
