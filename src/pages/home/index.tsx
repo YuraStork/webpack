@@ -6,14 +6,14 @@ import { HomeSection, Card, CardsWrapper } from "./styles";
 export const HomePage = () => {
   const { count, loadPokemons, pokemons, error, isLoading } = useContext(PokemonsContext)
 
-  useEffect(() => {
-    loadPokemons(10, 0);
-  }, [])
+  // useEffect(() => {
+  //   loadPokemons(10, 0);
+  // }, [])
 
   return (
     <HomeSection>
       <Container>
-        {
+        {/* {
           isLoading && <h1 style={{ color: "red" }}>loading...</h1>
         }
         {
@@ -22,8 +22,8 @@ export const HomePage = () => {
         <CardsWrapper>
           {
             pokemons.map((pok) => <Card key={pok.url}><div>{pok.name}</div><div>side</div></Card>)
-          }
-        </CardsWrapper>
+          } */}
+        {/* </CardsWrapper> */}
       </Container>
     </HomeSection>
   );

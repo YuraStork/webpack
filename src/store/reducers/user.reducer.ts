@@ -13,6 +13,8 @@ type initialStateTypes = {
 
   data: {
     id: null | string,
+    avatar: null | string,
+    backgroundFon: null | string,
     name: null | string,
     age: null | number,
     role: null | string,
@@ -34,6 +36,8 @@ const initialState: initialStateTypes = {
 
   data: {
     id: null,
+    avatar: null,
+    backgroundFon: null,
     name: null,
     age: null,
     role: null,

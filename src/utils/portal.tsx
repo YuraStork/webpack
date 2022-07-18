@@ -1,14 +1,22 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 const ChildrenWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
-  background: #8282825d;
+  background: #2a2a2ac5;
   height: 100%;
   z-index: 9999;
   top: 0;
+
+  & > div{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 type Props = {
@@ -16,7 +24,7 @@ type Props = {
 }
 export const Portal = ({ children = null }: Props) => {
   return createPortal(
-    <ChildrenWrapper>{children}</ChildrenWrapper>,
+    <ChildrenWrapper><div>{children}</div></ChildrenWrapper>,
     document.getElementById("modal") as HTMLDivElement
   );
 };

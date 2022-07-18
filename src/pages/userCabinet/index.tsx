@@ -1,84 +1,92 @@
 import { Button } from "components/button/styles";
 import { Container } from "components/container/styles";
-import { Input } from "components/input";
-import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import { MainTitle } from "styles/typography/styles";
-import { UserCabinetSection, UserForm } from "./styles";
-import { filterFields, setInitialValues, validationSchema } from "./const";
-import { TextEditor } from "components/textEditor";
-import { ImageCrop } from "components/image-crop";
+import {
+  UserCabinetSection,
+  AvatarWrapper,
+  Wrapper,
+  UserInfo,
+  Biography,
+  UserInfoWrapper,
+  Avatar,
+  ImagesWrapper,
+  ButtonWrapper,
+} from "./styles";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { getUser } from "store/selectors/user.selector";
-import { getUserProfileThunk, updateUserProfileThunk } from "store/thunks/user.thunk";
-import { UserCabinetTypes } from "./types";
+import { getUserProfileThunk } from "store/thunks/user.thunk";
+import { UpdateUserModal } from "./updateUserModal";
 
 export const UserCabinet = () => {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
   const { data, isLoading } = useAppSelector(getUser);
   const handleEdit = () => setEditMode(!editMode);
-  const [biography, setBiography] = useState(data.biography || "");
 
   useEffect(() => {
-    dispatch(getUserProfileThunk(data.id!))
-  }, [])
-
-  const userFields: [keyof UserCabinetTypes, string][] = filterFields(data);
-
-  const formik = useFormik({
-    initialValues: setInitialValues(data),
-    onSubmit: (profile, helper) => {
-      ;
-      const id = data?.id || ""
-      dispatch(updateUserProfileThunk({ ...profile, id, biography })).then(() => {
-        dispatch(getUserProfileThunk(data.id!))
-      })
-      handleEdit();
-    },
-    validationSchema,
-    enableReinitialize: true,
-  });
+    dispatch(getUserProfileThunk(data.id!));
+  }, []);
 
   return (
     <UserCabinetSection>
       <Container>
-        <MainTitle>Cabinet</MainTitle>
         {isLoading ? (
-          <h1>Loading...</h1>
-        ) : editMode ? (<>
-          <ImageCrop />
-          <UserForm onSubmit={formik.handleSubmit}>
-            {userFields.map(([key]: [keyof UserCabinetTypes, string]) => (
-              <Input
-                key={key}
-                label={key}
-                name={key}
-                type="text"
-                value={formik.values[key] || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            ))}
-            <TextEditor name="biography" onChange={(str: string) => setBiography(str)} value={data.biography} />
-            <Button type="submit">Save</Button>
-          </UserForm>
-        </>) : <>
-          <ul>
-            {userFields.map((p) => (
-              <li key={p[0]}>
-                {p[0]}: {p[1]}
-              </li>
-            ))}
-          </ul>
+          <h1 style={{ textAlign: "center" }}>Loading...</h1>
+        ) : (
+          <>
+            <Wrapper>
+              <ImagesWrapper>
+                <img src={data.backgroundFon || ""} alt={data.name || "user"} />
+                <AvatarWrapper>
+                  <Avatar>
+                    <img src={data.avatar || ""} alt={data.name || "user"} />
+                  </Avatar>
+                  <div>{data.name}</div>
+                </AvatarWrapper>
+              </ImagesWrapper>
 
-          {!editMode && (
-            <div>
-              <Button onClick={handleEdit}>Edit</Button>
-            </div>
-          )}
-        </>
-        }
+              <UserInfoWrapper>
+                <UserInfo>
+                  <div>
+                    <span>Name</span> {data.name}
+                  </div>
+                  <div>
+                    <span>Age</span> {data.age}
+                  </div>
+                  <div>
+                    <span>Country</span> {data.country}
+                  </div>
+                  <div>
+                    <span>City</span> {data.city}
+                  </div>
+                  <div>
+                    <span>Color</span> {data.color}
+                  </div>
+                  <div>
+                    <span>Bithday</span> {data.date}
+                  </div>
+                </UserInfo>
+
+                <Biography>
+                  <p>Biography</p>
+                  {data.biography} Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Cum sint veritatis cupiditate sunt. Eos
+                  distinctio at aliquam, omnis minus consequuntur temporibus
+                  sapiente, odio qui consectetur expedita consequatur et facere
+                  deserunt.
+                </Biography>
+              </UserInfoWrapper>
+
+              <ButtonWrapper>
+                <Button onClick={handleEdit} color="#fff">
+                  Edit
+                </Button>
+              </ButtonWrapper>
+            </Wrapper>
+          </>
+        )}
+
+        {editMode && <UpdateUserModal data={data} handleEdit={handleEdit} />}
       </Container>
     </UserCabinetSection>
   );

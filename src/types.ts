@@ -9,6 +9,8 @@ export interface UserRegistrationData extends UserLoginFormData {
 export interface AuthorizedUser {
   id: string | null;
   name: string | null;
+  avatar: string | null;
+  backgroundFon: string | null;
   age: number | null;
   role: string | null;
   email: string | null;
