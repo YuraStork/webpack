@@ -3,56 +3,35 @@ import { ImageCrop } from "components/image-crop";
 import { Input } from "components/input";
 import { TextEditor } from "components/textEditor";
 import { useFormik } from "formik";
-import { ChangeEvent, FC, useCallback, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { useAppDispatch } from "store/store";
-import {
-  getUserProfileThunk,
-  updateUserProfileThunk,
-} from "store/thunks/user.thunk";
 import { Portal } from "utils/portal";
-import { filterFields, setInitialValues, validationSchema } from "../const";
+import { filterFields, setInitialValues, validationSchema, onSubmit } from "../const";
 import { UserForm, ButtonWrapper } from "./styles";
-import { InitialStateTypes, UserCabinetTypes } from "../types";
+import { UserCabinetTypes } from "../types";
 import { UpdateUserModalTypes } from "./types";
-import { createBlobFile } from "utils/encodeBase64";
-
 
 export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
-  data,
+  userData,
   handleEdit,
 }) => {
   const dispatch = useAppDispatch();
-  const [avatar, setAvatar] = useState(data.avatar);
-  const [biography, setBiography] = useState(data.biography || "");
-  const [cropAvatar, setCropAvatar] = useState(data.avatar);
-  const [backgroundFon, setBackgroundFon] = useState<any>();
+  const [avatar, setAvatar] = useState(userData.avatar);
+  const [biography, setBiography] = useState(userData.biography);
+  const [cropAvatar, setCropAvatar] = useState(userData.avatar);
+  const [backgroundFon, setBackgroundFon] = useState<any>(userData.backgroundFon);
 
-  const handleSaveAvatar = useCallback((crop: string, originalImage: string) => { setCropAvatar(crop); setAvatar(originalImage) }, []);
+  const handleSaveAvatar = (crop: string, originalImage: string) => { setCropAvatar(crop); setAvatar(originalImage) };
   const handleSaveBackground = (e: ChangeEvent<HTMLInputElement>) => e.target.files && setBackgroundFon(e.target.files[0]);
 
   const formik = useFormik({
-    initialValues: setInitialValues(data),
-    onSubmit: async (profile, helper) => {
-      const formdata = new FormData();
-      const keys: any[] = Object.keys(profile);
-      keys.map((key: keyof InitialStateTypes) => formdata.append(key, profile[key]))
-      formdata.append("id", data.id);
-      formdata.append("backgroundFon", backgroundFon);
-      const file = await createBlobFile(cropAvatar, "image", "image/png");
-      formdata.append("avatar", file);
-
-      dispatch(
-        updateUserProfileThunk(formdata)
-      ).then(() => {
-        dispatch(getUserProfileThunk(data.id));
-      });
-      handleEdit();
-    },
+    initialValues: setInitialValues(userData),
+    onSubmit: (data, helper) => onSubmit({ ...data, id: userData.id, avatar: cropAvatar, backgroundFon, biography }, userData, helper, dispatch, handleEdit),
     validationSchema,
     enableReinitialize: true,
   });
 
-  const userFields: [keyof UserCabinetTypes, string][] = filterFields(data);
+  const userFields: [keyof UserCabinetTypes, string][] = filterFields(userData);
 
   return (
     <Portal>
@@ -73,18 +52,18 @@ export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
             label={key}
             name={key}
             type={"text"}
-            value={formik.values[key] || ""}
+            value={formik.values[key]}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         ))}
 
         <input type="file" name="backgroundFon" onChange={handleSaveBackground} />
-        
+
         <TextEditor
           name="biography"
           onChange={(str: string) => setBiography(str)}
-          value={data.biography}
+          value={biography}
         />
 
         <ButtonWrapper>

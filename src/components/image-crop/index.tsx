@@ -32,11 +32,9 @@ export const ImageCrop: FC<ImageCropProps> = ({
   };
 
   const onFileLoad = (file: any) => {
-    console.log("LOAD", file);
     EncodeBase64(file).then(res => { console.log("res", res); setEditingImage(res) });
   }
 
-  console.log("IMAGE", image)
   return (
     <AvatarEditWrapper>
       {editMode ? (

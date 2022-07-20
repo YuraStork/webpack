@@ -18,8 +18,8 @@ import { getUserProfileThunk } from "store/thunks/user.thunk";
 import { UpdateUserModal } from "./updateUserModal";
 
 export const UserCabinet = () => {
-  const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
+  const [editMode, setEditMode] = useState(false);
   const { data, isLoading } = useAppSelector(getUser);
   const handleEdit = () => setEditMode(!editMode);
 
@@ -36,10 +36,10 @@ export const UserCabinet = () => {
           <>
             <Wrapper>
               <ImagesWrapper>
-                <img src={data.backgroundFon || ""} alt={data.name || "user"} />
+                <img src={data.backgroundFon} alt={data.name} />
                 <AvatarWrapper>
                   <Avatar>
-                    <img src={data.avatar || ""} alt={data.name || "user"} />
+                    <img src={data.avatar} alt={data.name} />
                   </Avatar>
                   <div>{data.name}</div>
                 </AvatarWrapper>
@@ -86,7 +86,7 @@ export const UserCabinet = () => {
           </>
         )}
 
-        {editMode && <UpdateUserModal data={data} handleEdit={handleEdit} />}
+        {editMode && <UpdateUserModal userData={data} handleEdit={handleEdit} />}
       </Container>
     </UserCabinetSection>
   );

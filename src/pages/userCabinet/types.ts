@@ -1,6 +1,6 @@
 import { AuthorizedUser } from "types";
 
-export type UserCabinetTypes = Omit<AuthorizedUser, "id" | "role" | "email" | "avatar" | "backgroundFon">
+export type UserCabinetTypes = Omit<AuthorizedUser, "id" | "role" | "email" | "avatar" | "backgroundFon" | "biography">
 export type InitialStateTypes = {
   name: string
   country: string
@@ -8,6 +8,5 @@ export type InitialStateTypes = {
   age: string
   color: string
   gender: string
-  biography: string
   date: string
 }

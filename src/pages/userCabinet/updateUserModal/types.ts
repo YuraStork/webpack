@@ -1,6 +1,6 @@
 import { AuthorizedUser } from "types";
 
 export type UpdateUserModalTypes = {
-  data: AuthorizedUser;
+  userData: AuthorizedUser;
   handleEdit: () => void;
 };

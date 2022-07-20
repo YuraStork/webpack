@@ -1,4 +1,11 @@
+import { FormikContextType, FormikFormProps, FormikProps } from "formik";
+import { AppDispatch } from "store/store";
+import {
+  getUserProfileThunk,
+  updateUserProfileThunk,
+} from "store/thunks/user.thunk";
 import { AuthorizedUser } from "types";
+import { createBlobFile } from "utils/encodeBase64";
 import * as yup from "yup";
 import { InitialStateTypes, UserCabinetTypes } from "./types";
 
@@ -9,20 +16,16 @@ const defaultUserValues = {
   age: "",
   color: "",
   gender: "",
-  biography: "",
   date: "",
 };
-
-
 
 const setInitialValues = (data: AuthorizedUser): InitialStateTypes => ({
   name: data.name,
   country: data.country,
   city: data.city,
-  age: data.age || "18",
+  age: data.age,
   color: data.color,
   gender: data.gender,
-  biography: data.biography,
   date: data.date,
 });
 
@@ -33,7 +36,6 @@ const validationSchema = yup.object().shape({
   city: yup.string(),
   color: yup.string(),
   gander: yup.string(),
-  biography: yup.string(),
   date: yup.date(),
 });
 
@@ -54,10 +56,61 @@ const filterFields = (
 
 const setInputTypes = (name: string) => {
   switch (name) {
-    case "date": return "date";
-    case "age": return "number";
-    case "gender": return "radio";
-    default: return "text";
+    case "date":
+      return "date";
+    case "age":
+      return "number";
+    case "gender":
+      return "radio";
+    default:
+      return "text";
   }
-}
-export { setInitialValues, validationSchema, defaultUserValues, filterFields, setInputTypes };
+};
+
+const onSubmit = async (
+  chenchedData: Omit<AuthorizedUser, "role" | "email">,
+  original: AuthorizedUser,
+  helper: any,
+  dispatch: AppDispatch,
+  handleEdit: () => void
+) => {
+  const keys: any[] = Object.keys(chenchedData);
+  const formData = new FormData();
+  const filteredKeys = keys.filter(
+    (key: keyof Omit<AuthorizedUser, "role" | "email">) => {
+      return chenchedData[key] !== original[key];
+    }
+  );
+
+  const isAvatar = filteredKeys.includes("avatar");
+
+  if (isAvatar) {
+    const file = await createBlobFile(
+      chenchedData.avatar,
+      "image",
+      "image/png"
+    );
+    formData.append("avatar", file);
+  }
+
+  filteredKeys.map((key: keyof Omit<AuthorizedUser, "role" | "email">) => {
+    if (key === "avatar") return;
+    formData.append(key, chenchedData[key]);
+  });
+
+  formData.append("id", original.id);
+
+  handleEdit();
+  dispatch(updateUserProfileThunk(formData)).then(() => {
+    dispatch(getUserProfileThunk(original.id));
+  });
+};
+
+export {
+  setInitialValues,
+  validationSchema,
+  defaultUserValues,
+  filterFields,
+  setInputTypes,
+  onSubmit,
+};
