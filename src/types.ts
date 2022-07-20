@@ -7,19 +7,19 @@ export interface UserRegistrationData extends UserLoginFormData {
   age: number;
 }
 export interface AuthorizedUser {
-  id: string | null;
-  name: string | null;
-  avatar: string | null;
-  backgroundFon: string | null;
-  age: number | null;
-  role: string | null;
-  email: string | null;
-  country: string | null;
-  city: string | null;
-  color: string | null;
-  gender: string | null;
-  date: string | null;
-  biography: string | null;
+  id: string;
+  name: string;
+  avatar: string;
+  backgroundFon: string;
+  age: string;
+  role: string;
+  email: string;
+  country: string;
+  city: string;
+  color: string;
+  gender: string;
+  date: string;
+  biography: string;
 }
 export interface SavedUserObject {
   token: string;
@@ -36,13 +36,12 @@ export interface AuthContextTypes {
 }
 
 export interface PokemonShortData {
-  name: string
-  url: string
+  name: string;
+  url: string;
 }
 export interface PokemonsResponse {
-  count: number
-  next: any
-  previous: any
-  results: PokemonShortData[]
+  count: number;
+  next: any;
+  previous: any;
+  results: PokemonShortData[];
 }
-

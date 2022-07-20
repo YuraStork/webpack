@@ -55,6 +55,7 @@
     "react/prop-types": "off",
     "@typescript-eslint/no-non-null-assertion": "warn",
     "new-cap": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "guard-for-in": "off"
   }
 }

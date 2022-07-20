@@ -1,60 +1,80 @@
 import { FC, useState } from "react";
 import Avatar from "react-avatar-edit";
-import styled from "styled-components";
+import { EncodeBase64 } from "utils/encodeBase64";
+import { AvatarEditWrapper } from "./styles";
+import { ImageCropProps } from "./types";
 
-type ImageCropProps = {
-  image: string | null;
-  width: number;
-  height: number;
-  handleSavePhoto: (photo: string) => void;
-};
-
-const AvatarEditWrapper = styled.div`
-  padding-top: 30px;
-  display: flex;
-`
 export const ImageCrop: FC<ImageCropProps> = ({
   image,
   height = 200,
   width = 300,
-  handleSavePhoto
+  handleSavePhoto,
 }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [editingImage, setEditingImage] = useState<string>("");
   const [preview, setPreview] = useState<null | string>(null);
-  const [src, setSrc] = useState(image || "");
+  const [prevPreview, setPrevPreview] = useState<null | string>(null);
 
-  const onClose = () => {
-    setPreview(null);
-  };
-
-  const onCrop = (preview: string) => {
-    console.log(preview);
-    setPreview(preview);
-  };
-
+  const onClose = () => setPreview(null)
+  const onCrop = (preview: string) => setPreview(preview);
   const onBeforeFileLoad = (elem: any) => {
-    if (elem.target.files[0].size > 121680) {
+    if (elem.target.files[0].size > 10_485_760) {
       alert("File is too big!");
       elem.target.value = "";
     }
   };
-
   const onSave = () => {
     if (preview) {
-      handleSavePhoto(preview)
-      return;
+      handleSavePhoto(preview, editingImage);
+      setPrevPreview(preview);
+      setEditMode(false);
     }
+  };
+
+  const onFileLoad = (file: any) => {
+    console.log("LOAD", file);
+    EncodeBase64(file).then(res => { console.log("res", res); setEditingImage(res) });
   }
+
+  console.log("IMAGE", image)
   return (
     <AvatarEditWrapper>
-      <Avatar
-        src={src}
-        width={width}
-        height={height}
-        onCrop={onCrop}
-        onClose={onClose}
-        onBeforeFileLoad={onBeforeFileLoad}
-      />
-      <div><button onClick={onSave} type="button">save</button></div>
+      {editMode ? (
+        <>
+          <Avatar
+            src={image}
+            width={width}
+            height={height}
+            onCrop={onCrop}
+            onClose={onClose}
+            label={"Choose Avatar"}
+            onBeforeFileLoad={onBeforeFileLoad}
+            onFileLoad={onFileLoad}
+          />
+          <div>
+            <button onClick={onSave} type="button">
+              save
+            </button>
+            <button onClick={() => setEditMode(false)} type="button">
+              cancel
+            </button>
+          </div>
+        </>
+      ) : (
+        <div>
+          <img
+            src={prevPreview || image}
+            width={120}
+            height={120}
+            className="image_default_styles"
+          />
+          <div>
+            <button onClick={() => setEditMode(true)} type="button">
+              edit
+            </button>
+          </div>
+        </div>
+      )}
     </AvatarEditWrapper>
   );
 };

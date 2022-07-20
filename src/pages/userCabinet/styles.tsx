@@ -25,11 +25,14 @@ const ImagesWrapper = styled.div`
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 2px 2px 10px 1px #bcbcbc;
+  overflow: hidden;
 
   & > img {
     width: 100%;
     height: 100%;
     aspect-ratio: 1/1;
+    object-fit: cover;
+    transition: all 1s linear;
   }
 `;
 
@@ -61,6 +64,7 @@ const Avatar = styled.div`
     height: 100%;
     border-radius: 50%;
     aspect-ratio: 1/1;
+    object-fit: cover;
     box-shadow: 0px 0px 5px 1px black;
   }
 `;
@@ -83,7 +87,7 @@ const UserInfo = styled.div`
     width: 100%;
     font-family: "Roboto";
     font-weight: 400;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-bottom: 2px solid ${(p) => p.theme.colors.light_gray};
 
     & > span {
@@ -106,8 +110,8 @@ const Biography = styled.div`
   font-weight: 400;
 
   & > p {
-    font-size: 23px;
-    padding: 5px 5px 5px 0px;
+    font-size: 18px;
+    padding: 10px 5px 10px 0px;
   }
 `;
 //---------------------3--------------------------------

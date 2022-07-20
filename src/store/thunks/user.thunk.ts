@@ -28,7 +28,7 @@ export const getUserProfileThunk = createAsyncThunk(
 
 export const updateUserProfileThunk = createAsyncThunk(
   `${USER_REDUCER}/update-profile-thunk`,
-  async (data: Pick<AuthorizedUser, "id"> & UserCabinetTypes, thunkAPI) => {
+  async (data: any, thunkAPI) => {
     const response = await updateUserProfile(data);
     if (response?.status === 200) {
       return response?.data;

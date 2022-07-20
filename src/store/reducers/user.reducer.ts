@@ -8,46 +8,46 @@ import { getUserProfileThunk, updateUserProfileThunk, UserLoginThunk } from "sto
 type initialStateTypes = {
   isAuth: boolean,
   isLoading: boolean,
-  error: null | string,
-  token: null | string,
+  error: undefined | string,
+  token: undefined | string,
 
   data: {
-    id: null | string,
-    avatar: null | string,
-    backgroundFon: null | string,
-    name: null | string,
-    age: null | number,
-    role: null | string,
-    email: null | string,
-    country: null | string,
-    city: null | string,
-    color: null | string,
-    gender: null | string,
-    date: null | string,
-    biography: null | string,
+    id: string,
+    avatar: string,
+    backgroundFon: string,
+    name: string,
+    age: string,
+    role: string,
+    email: string,
+    country: string,
+    city: string,
+    color: string,
+    gender: string,
+    date: string,
+    biography: string,
   }
 }
 
 const initialState: initialStateTypes = {
   isAuth: false,
-  error: null,
+  error: undefined,
   isLoading: false,
-  token: null,
+  token: undefined,
 
   data: {
-    id: null,
-    avatar: null,
-    backgroundFon: null,
-    name: null,
-    age: null,
-    role: null,
-    email: null,
-    country: null,
-    city: null,
-    color: null,
-    gender: null,
-    date: null,
-    biography: null,
+    id: "",
+    avatar: "",
+    backgroundFon: "",
+    name: "",
+    age: "",
+    role: "",
+    email: "",
+    country: "",
+    city: "",
+    color: "",
+    gender: "",
+    date: "",
+    biography: "",
   }
 }
 
@@ -69,21 +69,21 @@ export const UserReducer = createSlice({
       localStorage.removeItem("user");
       state.data = initialState.data;
       state.isAuth = false;
-      state.token = null;
+      state.token = undefined;
     }
   },
 
   extraReducers: builder => {
     builder.addCase(UserLoginThunk.pending, (state) => {
       state.isLoading = true;
-      state.error = null;
+      state.error = undefined;
     })
     builder.addCase(UserLoginThunk.fulfilled, (state, { payload }: PayloadAction<SavedUserObject>) => {
       state.token = payload.token;
       state.data.id = payload.user.id;
       state.data.name = payload.user.name;
       state.data.role = payload.user.role;
-      state.error = null;
+      state.error = undefined;
       state.isAuth = true;
       state.isLoading = false;
       saveUserInStorage(payload);

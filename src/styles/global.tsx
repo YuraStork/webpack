@@ -21,5 +21,10 @@ export const GlobalStyles = createGlobalStyle`
     color: #6363fa;
   }
 
+  .image_default_styles{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+  }
+
   ${normalize}
 `;
