@@ -55,7 +55,7 @@ const InputWrapper = styled.div<InputWrapperProps>`
     }
 
     &:focus ~ label {
-      top: 0px;
+      top: -10px;
       color: #0a87e1;
       ${(p) =>
         p.hasValue &&
@@ -79,6 +79,7 @@ const InputWrapper = styled.div<InputWrapperProps>`
     top: 19px;
     left: 5px;
     font-size: 12px;
+    color: ${(p) => p.theme.colors.light_gray};
 
     ${(p) =>
       p.hasValue &&

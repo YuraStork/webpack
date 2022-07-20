@@ -70,7 +70,7 @@ export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
           <Button type="submit" color="#fff">
             Save
           </Button>{" "}
-          <Button type="submit" color="#fff" onClick={handleEdit}>
+          <Button type="submit" color="#fff" onClick={handleEdit} background="red">
             Cancel
           </Button>
         </ButtonWrapper>
