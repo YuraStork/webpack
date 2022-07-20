@@ -61,7 +61,7 @@ export const UserCabinet = () => {
                     <span>City</span> {data.city}
                   </div>
                   <div>
-                    <span>Color</span> {data.color}
+                    <span>Color</span> <span style={{ display: "inline-block", background: data.color, width: "10px", height: "10px", borderRadius: "10px", minWidth: "10px" }}></span>
                   </div>
                   <div>
                     <span>Gender</span> {data.gender}

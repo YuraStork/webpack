@@ -9,7 +9,7 @@ type ButtonProps = {
 export const Button = styled.button<ButtonProps>`
   position: relative;
   padding: 10px;
-  width: 200px;
+  width: 100px;
   ${(p) =>
     p.margin &&
     css`
