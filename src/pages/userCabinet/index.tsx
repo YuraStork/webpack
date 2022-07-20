@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "store/store";
 import { getUser } from "store/selectors/user.selector";
 import { getUserProfileThunk } from "store/thunks/user.thunk";
 import { UpdateUserModal } from "./updateUserModal";
+import { HtmlText } from "components/htmlText";
 
 export const UserCabinet = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ export const UserCabinet = () => {
           <>
             <Wrapper>
               <ImagesWrapper>
-                <img src={data.backgroundFon+`?id=${Math.floor(Math.random()*100)}`} alt={data.name} />
+                <img src={data.backgroundFon + `?id=${Math.floor(Math.random() * 100)}`} alt={data.name} />
                 <AvatarWrapper>
                   <Avatar>
                     <img src={data.avatar} alt={data.name} />
@@ -63,17 +64,16 @@ export const UserCabinet = () => {
                     <span>Color</span> {data.color}
                   </div>
                   <div>
+                    <span>Gender</span> {data.gender}
+                  </div>
+                  <div>
                     <span>Bithday</span> {data.date}
                   </div>
                 </UserInfo>
 
                 <Biography>
                   <p>Biography</p>
-                  {data.biography} Lorem ipsum dolor, sit amet consectetur
-                  adipisicing elit. Cum sint veritatis cupiditate sunt. Eos
-                  distinctio at aliquam, omnis minus consequuntur temporibus
-                  sapiente, odio qui consectetur expedita consequatur et facere
-                  deserunt.
+                  <HtmlText str={data.biography ? data.biography : "You`ve not a biography yet "} />
                 </Biography>
               </UserInfoWrapper>
 

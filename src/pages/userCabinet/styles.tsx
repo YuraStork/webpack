@@ -2,14 +2,15 @@ import styled from "styled-components";
 
 const UserCabinetSection = styled.section`
   & > div {
-    width: 1200px;
+    max-width: 1200px;
     padding: 5px;
   }
 `;
 
 const Wrapper = styled.div`
+  width: 100%;
   display: grid;
-  grid-template: 350px minmax(100px, auto) auto / 300px 1fr;
+  grid-template: 350px minmax(100px, auto) auto / minmax(100px, 350px) 1fr;
   gap: 30px;
   font-family: Roboto;
 `;
@@ -34,6 +35,7 @@ const ImagesWrapper = styled.div`
     object-fit: cover;
     transition: all 1s linear;
   }
+
 `;
 
 const AvatarWrapper = styled.div`
@@ -44,6 +46,9 @@ const AvatarWrapper = styled.div`
   padding-left: 60px;
   align-items: flex-start;
  
+  @media screen and (max-width: 700px){
+    padding-left: 10px;
+  }
 
   & > div:last-child {
     padding-top: 40px;
@@ -73,7 +78,7 @@ const Avatar = styled.div`
 const UserInfoWrapper = styled.div`
   grid-column: 1/3;
   display: grid;
-  grid-template: minmax(150px, auto) minmax(150px, auto) / 1fr;
+  grid-template: minmax(150px, auto) minmax(50px, auto) / 1fr;
   box-shadow: 2px 2px 10px 1px #bcbcbc;
 `;
 
@@ -92,7 +97,7 @@ const UserInfo = styled.div`
 
     & > span {
       display: inline-block;
-      min-width: 75px;
+      min-width: 100px;
       font-weight: 400;
       font-size: 18px;
     }
@@ -108,8 +113,11 @@ const Biography = styled.div`
   border-bottom-right-radius: 10px;
   text-align: justify;
   font-weight: 400;
+  display: flex;
+  align-items: center;
 
   & > p {
+    min-width: 100px;
     font-size: 18px;
     padding: 10px 5px 10px 0px;
   }
