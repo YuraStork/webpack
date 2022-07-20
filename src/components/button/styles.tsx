@@ -9,7 +9,7 @@ type ButtonProps = {
 export const Button = styled.button<ButtonProps>`
   position: relative;
   padding: 10px;
-  width: 100%;
+  width: 200px;
   ${(p) =>
     p.margin &&
     css`
@@ -28,7 +28,6 @@ export const Button = styled.button<ButtonProps>`
   }
 
   &:hover:not([disabled]) {
-    transform: translate(-2px, -2px);
-    box-shadow: 2px 3px 0px 0px #1161c9;
+    background-color: ${(p) => p.background || "#0055c4"};
   }
 `;

@@ -1,87 +1,92 @@
 import { Button } from "components/button/styles";
 import { Container } from "components/container/styles";
-import { Input } from "components/input";
-import { AuthContext } from "context/auth.context";
-import { useFormik } from "formik";
-import { useContext, useEffect, useState } from "react";
-import { MainTitle } from "styles/typography/styles";
-import { UserCabinetSection, UserForm } from "./styles";
-import { setInitialValues, onSubmit, validationSchema, defaultUserValues } from "./const";
-import { getUser } from "api/user.api";
-import { TextEditor } from "components/textEditor";
-import { ImageCrop } from "components/image-crop";
+import { useEffect, useState } from "react";
+import {
+  UserCabinetSection,
+  AvatarWrapper,
+  Wrapper,
+  UserInfo,
+  Biography,
+  UserInfoWrapper,
+  Avatar,
+  ImagesWrapper,
+  ButtonWrapper,
+} from "./styles";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { getUser } from "store/selectors/user.selector";
+import { getUserProfileThunk } from "store/thunks/user.thunk";
+import { UpdateUserModal } from "./updateUserModal";
 
 export const UserCabinet = () => {
+  const dispatch = useAppDispatch();
   const [editMode, setEditMode] = useState(false);
-  const { userData, logout } = useContext(AuthContext);
-  const [userFullData, setUserFullData] = useState<any>(defaultUserValues);
-  const [isLoading, setIsLoading] = useState(false);
-  const [biography, setBiography] = useState("");
-
+  const { data, isLoading } = useAppSelector(getUser);
   const handleEdit = () => setEditMode(!editMode);
-  const userFields: any = Object.entries(userFullData || {}).filter(
-    ([key, value]) => key !== "id" && key !== "role" && key !== "email" && key !== "biography"
-  );
-
-  const getUserData = async () => {
-    setIsLoading(true);
-    const res = await getUser(userData?.user.id || "", logout);
-    if (res) {
-      setUserFullData(res?.data);
-    }
-    setIsLoading(false);
-  };
 
   useEffect(() => {
-    getUserData();
+    dispatch(getUserProfileThunk(data.id!));
   }, []);
-
-  const formik = useFormik({
-    initialValues: setInitialValues(userFullData),
-    onSubmit: (data, helper) => onSubmit({ ...data, id: userData?.user.id || "", biography, handleEdit }, helper),
-    validationSchema,
-    enableReinitialize: true,
-  });
 
   return (
     <UserCabinetSection>
       <Container>
-        <MainTitle>Cabinet</MainTitle>
         {isLoading ? (
-          <h1>Loading...</h1>
-        ) : editMode ? (<>
-          <ImageCrop />
-          <UserForm onSubmit={formik.handleSubmit}>
-            {userFields.map(([key, value]: any) => (
-              <Input
-                key={key}
-                label={key}
-                name={key}
-                type="text"
-                value={formik.values[key] || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            ))}
-            <TextEditor name="biography" onChange={(str: string) => setBiography(str)} value={userFullData.biography} />
-            <Button type="submit">Save</Button>
-          </UserForm>
-        </>) : <>
-          <ul>
-            {userFields.map((p: any) => (
-              <li key={p[0]}>
-                {p[0]}: {p[1]}
-              </li>
-            ))}
-          </ul>
+          <h1 style={{ textAlign: "center" }}>Loading...</h1>
+        ) : (
+          <>
+            <Wrapper>
+              <ImagesWrapper>
+                <img src={data.backgroundFon} alt={data.name} />
+                <AvatarWrapper>
+                  <Avatar>
+                    <img src={data.avatar} alt={data.name} />
+                  </Avatar>
+                  <div>{data.name}</div>
+                </AvatarWrapper>
+              </ImagesWrapper>
 
-          {!editMode && (
-            <div>
-              <Button onClick={handleEdit}>Edit</Button>
-            </div>
-          )}
-        </>
-        }
+              <UserInfoWrapper>
+                <UserInfo>
+                  <div>
+                    <span>Name</span> {data.name}
+                  </div>
+                  <div>
+                    <span>Age</span> {data.age}
+                  </div>
+                  <div>
+                    <span>Country</span> {data.country}
+                  </div>
+                  <div>
+                    <span>City</span> {data.city}
+                  </div>
+                  <div>
+                    <span>Color</span> {data.color}
+                  </div>
+                  <div>
+                    <span>Bithday</span> {data.date}
+                  </div>
+                </UserInfo>
+
+                <Biography>
+                  <p>Biography</p>
+                  {data.biography} Lorem ipsum dolor, sit amet consectetur
+                  adipisicing elit. Cum sint veritatis cupiditate sunt. Eos
+                  distinctio at aliquam, omnis minus consequuntur temporibus
+                  sapiente, odio qui consectetur expedita consequatur et facere
+                  deserunt.
+                </Biography>
+              </UserInfoWrapper>
+
+              <ButtonWrapper>
+                <Button onClick={handleEdit} color="#fff">
+                  Edit
+                </Button>
+              </ButtonWrapper>
+            </Wrapper>
+          </>
+        )}
+
+        {editMode && <UpdateUserModal userData={data} handleEdit={handleEdit} />}
       </Container>
     </UserCabinetSection>
   );

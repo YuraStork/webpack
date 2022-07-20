@@ -25,19 +25,20 @@ export const handleRegistration = async (data: UserRegistrationData) => {
   }
 };
 
-export const getUser = async (id: string, logout: () => void) => {
+export const getUserProfile = async (id: string ) => {
+
   try {
     const res = await axios.get<AuthorizedUser | null>(`${API}/user/${id}`, { headers: { "Authorization": `Bearer ${getToken()}` } });
     return res;
   }
   catch (e) {
     toast.error(((e as AxiosError).response?.data as string) || "Error");
-    logout();
     return null;
   }
 };
 
-export const updateUserData = async (data: any) => {
+
+export const updateUserProfile = async (data: any) => {
   try {
     const res = await axios.put(`${API}/user/update`, data, { headers: { "Authorization": `Bearer ${getToken()}` } });
     console.log(res);
