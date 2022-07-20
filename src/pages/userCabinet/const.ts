@@ -1,4 +1,3 @@
-import { FormikContextType, FormikFormProps, FormikProps } from "formik";
 import { AppDispatch } from "store/store";
 import {
   getUserProfileThunk,
@@ -8,7 +7,6 @@ import { AuthorizedUser } from "types";
 import { createBlobFile } from "utils/encodeBase64";
 import * as yup from "yup";
 import { InitialStateTypes, UserCabinetTypes } from "./types";
-
 
 const defaultUserValues = {
   name: "",
@@ -102,11 +100,8 @@ const onSubmit = async (
   formData.append("id", original.id);
 
   handleEdit();
-  dispatch(updateUserProfileThunk(formData)).then(() => {
-    dispatch(getUserProfileThunk(original.id));
-  });
-};
-
+  dispatch(updateUserProfileThunk(formData)).then(() => dispatch(getUserProfileThunk(original.id)));
+}
 export {
   setInitialValues,
   validationSchema,

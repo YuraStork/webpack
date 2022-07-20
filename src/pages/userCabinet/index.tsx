@@ -36,7 +36,7 @@ export const UserCabinet = () => {
           <>
             <Wrapper>
               <ImagesWrapper>
-                <img src={data.backgroundFon} alt={data.name} />
+                <img src={data.backgroundFon+`?id=${Math.floor(Math.random()*100)}`} alt={data.name} />
                 <AvatarWrapper>
                   <Avatar>
                     <img src={data.avatar} alt={data.name} />
