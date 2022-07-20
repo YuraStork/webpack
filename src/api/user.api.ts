@@ -26,6 +26,7 @@ export const handleRegistration = async (data: UserRegistrationData) => {
 };
 
 export const getUserProfile = async (id: string ) => {
+
   try {
     const res = await axios.get<AuthorizedUser | null>(`${API}/user/${id}`, { headers: { "Authorization": `Bearer ${getToken()}` } });
     return res;
@@ -35,6 +36,7 @@ export const getUserProfile = async (id: string ) => {
     return null;
   }
 };
+
 
 export const updateUserProfile = async (data: any) => {
   try {

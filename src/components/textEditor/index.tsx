@@ -19,7 +19,7 @@ const EditorWrapper = styled.div`
 type TextEditorProps = {
   name: string;
   onChange: (e: string) => void;
-  value: string | null;
+  value: string;
 }
 
 export const TextEditor: FC<TextEditorProps> = ({ name, onChange, value }) => {
