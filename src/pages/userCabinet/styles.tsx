@@ -34,6 +34,10 @@ const ImagesWrapper = styled.div`
     aspect-ratio: 1/1;
     object-fit: cover;
     transition: all 1s linear;
+
+    &:hover{
+      transform: scale(110%)
+    }
   }
 
 `;
