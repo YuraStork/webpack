@@ -6,10 +6,16 @@ import { useFormik } from "formik";
 import { ChangeEvent, FC, useState } from "react";
 import { useAppDispatch } from "store/store";
 import { Portal } from "utils/portal";
-import { filterFields, setInitialValues, validationSchema, onSubmit } from "../const";
+import {
+  filterFields,
+  setInitialValues,
+  validationSchema,
+  onSubmit,
+} from "../const";
 import { UserForm, ButtonWrapper } from "./styles";
 import { UserCabinetTypes } from "../types";
 import { UpdateUserModalTypes } from "./types";
+import { FileInput } from "components/fileInput";
 
 export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
   userData,
@@ -19,14 +25,37 @@ export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
   const [avatar, setAvatar] = useState(userData.avatar);
   const [biography, setBiography] = useState(userData.biography);
   const [cropAvatar, setCropAvatar] = useState(userData.avatar);
-  const [backgroundFon, setBackgroundFon] = useState<any>(userData.backgroundFon);
+  const [backgroundFon, setBackgroundFon] = useState<any>(
+    userData.backgroundFon
+  );
 
-  const handleSaveAvatar = (crop: string, originalImage: string) => { setCropAvatar(crop); setAvatar(originalImage) };
-  const handleSaveBackground = (e: ChangeEvent<HTMLInputElement>) => e.target.files && setBackgroundFon(e.target.files[0]);
+  const handleSaveAvatar = (crop: string, originalImage: string) => {
+    setCropAvatar(crop);
+    setAvatar(originalImage);
+  };
+  const handleSaveBackground = (e: ChangeEvent<HTMLInputElement> | null) => {
+    if (e === null) {
+      setBackgroundFon(userData.backgroundFon);
+    }
+    e?.target?.files && setBackgroundFon(e.target.files[0]);
+  }
 
   const formik = useFormik({
     initialValues: setInitialValues(userData),
-    onSubmit: (data, helper) => onSubmit({ ...data, id: userData.id, avatar: cropAvatar, backgroundFon, biography }, userData, helper, dispatch, handleEdit),
+    onSubmit: (data, helper) =>
+      onSubmit(
+        {
+          ...data,
+          id: userData.id,
+          avatar: cropAvatar,
+          backgroundFon,
+          biography,
+        },
+        userData,
+        helper,
+        dispatch,
+        handleEdit
+      ),
     validationSchema,
     enableReinitialize: true,
   });
@@ -58,7 +87,7 @@ export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
           />
         ))}
 
-        <input type="file" name="backgroundFon" onChange={handleSaveBackground} />
+        <FileInput name="backgroundFon" onChange={handleSaveBackground} />
 
         <TextEditor
           name="biography"
@@ -70,7 +99,12 @@ export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
           <Button type="submit" color="#fff">
             Save
           </Button>{" "}
-          <Button type="submit" color="#fff" onClick={handleEdit} background="red">
+          <Button
+            type="submit"
+            color="#fff"
+            onClick={handleEdit}
+            background="red"
+          >
             Cancel
           </Button>
         </ButtonWrapper>
