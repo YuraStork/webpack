@@ -47,6 +47,7 @@ export const UpdateUserModal: FC<UpdateUserModalTypes> = ({
     e?.target?.files && setBackgroundFon(e.target.files[0]);
   };
 
+
   const formik = useFormik({
     initialValues: setInitialValues(userData),
     onSubmit: (data, helper) =>
