@@ -40,7 +40,7 @@ const validationSchema = yup.object().shape({
 
 const filterFields = (
   userFields: AuthorizedUser
-): [keyof UserCabinetTypes, string][] => {
+): [keyof Omit<UserCabinetTypes, "gender" | "color">, string][] => {
   const res = Object.entries(userFields).filter(
     ([key, value]) =>
       key !== "id" &&
@@ -48,8 +48,10 @@ const filterFields = (
       key !== "email" &&
       key !== "biography" &&
       key !== "avatar" &&
-      key !== "backgroundFon"
-  ) as [keyof UserCabinetTypes, string][];
+      key !== "backgroundFon" &&
+      key !== "gender" &&
+      key !== "color"
+  ) as [keyof Omit<UserCabinetTypes, "gender" | "color">, string][];
   return res;
 };
 
@@ -59,8 +61,7 @@ const setInputTypes = (name: string) => {
       return "date";
     case "age":
       return "number";
-    case "gender":
-      return "radio";
+    case "color": return "color"
     default:
       return "text";
   }

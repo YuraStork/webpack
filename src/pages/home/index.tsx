@@ -1,5 +1,6 @@
 import { Container } from "components/container/styles";
 import { FileInput } from "components/fileInput";
+import { RadioButtons } from "components/radioButton";
 import { PokemonsContext } from "context/pokemons.context";
 import { useContext, useEffect } from "react";
 import { HomeSection, Card, CardsWrapper } from "./styles";

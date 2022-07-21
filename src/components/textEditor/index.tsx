@@ -9,6 +9,10 @@ import styled from "styled-components";
 const EditorWrapper = styled.div`
   border: 1px solid #f3f3f3;
   position: relative;
+  background-color: white;
+  margin: 10px 0px;
+  border-radius: 10px;
+  overflow: hidden;
 
   & > textarea{
     position: absolute;

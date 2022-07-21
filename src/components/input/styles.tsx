@@ -65,6 +65,9 @@ const InputWrapper = styled.div<InputWrapperProps>`
       background-color: white;
       border-left: 2px solid #0a87e1;
       border-right: 2px solid #0a87e1;
+      border-top: 2px solid #0a87e1;
+      border-bottom: 2px solid #0a87e1;
+      padding: 2px 4px;
       ${(p) =>
         p.isError &&
         css`
